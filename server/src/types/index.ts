@@ -5,3 +5,14 @@ export interface ApiResponse<T> {
   error?: string;
 }
 
+export enum BusinessType {
+  ECOMMERCE = "ecommerce",
+  RETAIL = "retail",
+  WHOLESALE = "wholesale",
+}
+
+export enum ShippingOrigin {
+  WAREHOUSE = "warehouse",
+  
+}
+
