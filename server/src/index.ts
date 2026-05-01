@@ -4,6 +4,7 @@ import { connectDB } from "./config/db";
 import { syncModels } from "./models";
 import { errorHandler, notFound } from "./middleware/error-handler";
 import userRoutes from "./routes/user-routes";
+import profileRoutes from "./routes/profile-routes";
 
 dotenv.config();
 
@@ -18,7 +19,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.use("/api/users", userRoutes);
-
+app.use("/api/profile", profileRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
