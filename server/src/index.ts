@@ -2,6 +2,7 @@ import express, {Application, Request, Response} from "express";
 import dotenv from "dotenv";
 import { connectDB } from "./config/db";
 import { syncModels } from "./models";
+import { errorHandler, notFound } from "./middleware/error-handler";
 
 dotenv.config();
 
@@ -15,6 +16,9 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Hello Biroq Logistics");
 });
 
+
+app.use(notFound);
+app.use(errorHandler);
 
 const bootstrap = async (): Promise<void> => {
   await connectDB();
