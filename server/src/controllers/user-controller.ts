@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { User } from "../models";
 import { generateToken } from "../utils/token-helpers";
-import { asyncHandler, sendSucess } from "../utils/response-helpers";
+import { asyncHandler, sendSuccess } from "../utils/response-helpers";
 import { AppError } from "../middleware/error-handler";
 
 export const registerUser = asyncHandler(
@@ -19,7 +19,7 @@ export const registerUser = asyncHandler(
       lastName: lastName?.trim() ?? null,
     });
 
-    sendSucess(res, user.toSafeJSON(), "User registered successfully!", 201)
+    sendSuccess(res, user.toSafeJSON(), "User registered successfully!", 201)
 });
 
 export const login = asyncHandler(
@@ -53,6 +53,6 @@ export const login = asyncHandler(
       token: token,
     }
 
-    sendSucess(res, authResponse, "Logged in successfully", 200);
+    sendSuccess(res, authResponse, "Logged in successfully", 200);
   }
 )

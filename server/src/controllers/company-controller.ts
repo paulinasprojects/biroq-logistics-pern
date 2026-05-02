@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { asyncHandler, sendSucess } from "../utils/response-helpers";
+import { asyncHandler, sendSuccess } from "../utils/response-helpers";
 import { User, Company } from "../models";
 import { AppError } from "../middleware/error-handler";
 
@@ -27,7 +27,7 @@ export const createCompany = asyncHandler(
       address,
     });
 
-    sendSucess(res, company, "Company created successfully!", 201);
+    sendSuccess(res, company, "Company created successfully!", 201);
   }
 );
 
@@ -57,7 +57,7 @@ export const getCompanyById = asyncHandler(
       throw new AppError("Company not found", 404);
      }
 
-     sendSucess(res, company, "Company retrieved successfully!", 200)
+     sendSuccess(res, company, "Company retrieved successfully!", 200)
   }
 )
 
@@ -110,7 +110,7 @@ export const updateCompanyById = asyncHandler(
 
     const updatedCompany = await company.save();
 
-    sendSucess(res, updatedCompany, "Company updated successfully!")
+    sendSuccess(res, updatedCompany, "Company updated successfully!")
   }
 )
 
@@ -142,6 +142,6 @@ export const deleteCompanyById = asyncHandler(
 
     await company.destroy();
 
-    sendSucess(res, null, "Company deleted successfully!")
+    sendSuccess(res, null, "Company deleted successfully!")
   }
 )

@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { ApiResponse } from "../types";
 
-export const sendSucess = <T>(
+export const sendSuccess = <T>(
   res: Response,
   data: T,
   message: string = "success",
