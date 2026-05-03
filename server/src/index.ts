@@ -1,5 +1,6 @@
 import express, {Application, Request, Response} from "express";
 import dotenv from "dotenv";
+import cors from 'cors';
 import { connectDB } from "./config/db";
 import { syncModels } from "./models";
 import { errorHandler, notFound } from "./middleware/error-handler";
@@ -14,6 +15,12 @@ const app: Application = express();
 
 const PORT = process.env.PORT || 8000;
 
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.get("/", (req: Request, res: Response) => {

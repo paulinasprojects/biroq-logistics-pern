@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { asyncHandler, sendSucess } from "../utils/response-helpers";
+import { asyncHandler, sendSuccess } from "../utils/response-helpers";
 import { User } from "../models";
 import { AppError } from "../middleware/error-handler";
 
@@ -17,7 +17,7 @@ export const getProfile = asyncHandler(
       throw new AppError("User not found", 404);
     };
 
-    sendSucess(res, user.toSafeJSON(), "Profile retrieved successfully")
+    sendSuccess(res, user.toSafeJSON(), "Profile retrieved successfully")
   }
 );
 
@@ -58,7 +58,7 @@ export const updateProfile = asyncHandler(
 
     const updatedUser = await user.save();
 
-    sendSucess(res, updatedUser.toSafeJSON(), "Profile updated successfully.")
+    sendSuccess(res, updatedUser.toSafeJSON(), "Profile updated successfully.")
 
   }
 );
