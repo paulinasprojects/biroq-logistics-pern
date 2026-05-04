@@ -29,7 +29,7 @@ export default function SignupForm() {
 
   return (
     <section className="w-full mx-auto px-4 py-4 sm:px-0">
-      <div className="grid sm:grid-cols-2">
+      <div className="xl:grid sm:grid-cols-2">
         <div className="flex flex-col items-center gap-41">
           <div className="pt-10">
             <SmallLogo />
@@ -104,7 +104,7 @@ export default function SignupForm() {
           </div>
           <p className="text-sm font-normal text-gray-500">@2026 Biroq</p>
         </div>
-        <div className="hidden lg:block">
+        <div className="hidden xl:block">
           <img src={signupImage} alt="" />
         </div>
       </div>
