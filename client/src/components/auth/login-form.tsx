@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import { Eye, EyeOff } from 'lucide-react';
-import { useNavigate, Link } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
-import signupImage from "/signup-image.png"
+import { Link, useNavigate } from "react-router-dom";
+import loginImage from "/login-image.png"
+import { useAuthStore } from "@/store/auth-store"
 import { SmallLogo } from "../common/small-logo";
-import { useAuthStore } from "@/store/auth-store";
 
-
-export default function SignupForm() {
-  const { signup, error, isLoading } = useAuthStore();
+export default function LoginForm() {
+  const { login, error, isLoading } = useAuthStore();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -16,10 +15,12 @@ export default function SignupForm() {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const success = await signup(email, password);
-    if (success) {
-      toast.success("Sign up completed");
-      navigate("/login")
+    await login(email, password);
+    const { isAuthenticated } = useAuthStore.getState();
+
+    if (isAuthenticated) {
+      toast.success("Logged in successfully")
+      navigate("/profile")
     }
   }
 
@@ -27,17 +28,18 @@ export default function SignupForm() {
     setShowPassword((prev) => !prev)
   };
 
+
   return (
-    <section className="w-full mx-auto px-4 py-4 sm:px-0">
+    <section className="w-full mx-auto px-4 py-4 sm:px-4">
       <div className="xl:grid sm:grid-cols-2">
         <div className="flex flex-col items-center gap-41">
           <div className="pt-10">
             <SmallLogo />
           </div>
-          <div className="border border-[#EBEBEB] rounded-3xl p-10">
+          <div className="border border-[#e8e8e8] rounded-xl p-10">
             <div className="flex flex-col gap-2">
               <h3 className="text-2xl font-semibold">Welcome to Biroq</h3>
-              <p className="text-sm font-normal">Don't have an account yet? Creating one takes less than <br /> a minute! 📦</p>
+              <p className="text-sm font-normal">Log in to continue managing your Sign in to continue <br /> managing your shipments and operations.</p>
             </div>
             <form onSubmit={handleSubmit} className="flex flex-col gap-6">
               {error && (
@@ -89,23 +91,23 @@ export default function SignupForm() {
                 className="px-6 py-3 bg-amber-600 text-gray-100 rounded-full hover:bg-amber-700 transition-colors cursor-pointer font-medium"
               >
                 {isLoading ? (
-                  "Signing up"
+                  "Signing in"
                 ) : (
-                  "Sign Up"
+                  "Sign In"
                 )}
               </button>
             </form>
             <p className="text-center text-gray-400 mt-5 text-sm font-normal">
-              Already have an account?{" "}
-              <Link to="/login" className="text-[12px] text-[#121212] hover:text-[#121212]/50 transition-colors">
-                Sign in
+              Don't have an account?{" "}
+              <Link to="/signup" className="text-[12px] text-[#121212] hover:text-[#121212]/50 transition-colors">
+                Sign Up
               </Link>
             </p>
           </div>
           <p className="text-sm font-normal text-gray-500">@2026 Biroq</p>
         </div>
         <div className="hidden xl:block">
-          <img src={signupImage} alt="" />
+          <img src={loginImage} alt="" />
         </div>
       </div>
     </section>
