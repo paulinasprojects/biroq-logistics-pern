@@ -1,11 +1,14 @@
-import { toast } from "sonner"
+import { Navigate, Route, Routes } from 'react-router-dom';
+import SignupPage from "./pages/signup-page"
+import Homepage from "./pages/home-page";
 
 function App() {
   return (
-    <div>
-      Hello World
-      <button onClick={() => toast.success("Clicked")}>Click me</button>
-    </div>
+    <Routes>
+      <Route path="/" element={<Homepage />} />
+      <Route path="/signup" element={<SignupPage />} />
+      <Route path="*" element={<Navigate to="/" />} />
+    </Routes>
   )
 }
 

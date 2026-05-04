@@ -45,12 +45,12 @@ User.init({
     }
   },
   password: {
-    type: DataTypes.STRING(25),
+    type: DataTypes.STRING(255),
     allowNull: false,
     validate: {
       len: {
-        args: [8, 25],
-        msg: "Password must be at least 8 characters long "
+        args: [8, 72],
+        msg: "Password must be between 8 and 72 characters long "
       }
     }
   },
