@@ -7,8 +7,8 @@ export interface ApiResponse<T> {
 
 export interface User {
   id: string;
-  firstName?: string | null;
-  lastName?: string | null;
+  firstName: string;
+  lastName: string;
   email: string;
   createdAt: string;
   updatedAt: string;

@@ -20,7 +20,7 @@ export default function LoginForm() {
 
     if (isAuthenticated) {
       toast.success("Logged in successfully")
-      navigate("/profile")
+      navigate("/dashboard")
     }
   }
 

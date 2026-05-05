@@ -9,6 +9,8 @@ import { useAuthStore } from "@/store/auth-store";
 
 export default function SignupForm() {
   const { signup, error, isLoading } = useAuthStore();
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -16,9 +18,9 @@ export default function SignupForm() {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const success = await signup(email, password);
+    const success = await signup(email, password, firstName, lastName);
     if (success) {
-      toast.success("Sign up completed");
+      toast.success("Signed up completed successfully!");
       navigate("/login")
     }
   }
@@ -46,6 +48,30 @@ export default function SignupForm() {
                 </div>
               )}
               <div className="flex flex-col gap-2 mt-6">
+                <label htmlFor="first-name" className="text-sm font-medium">First Name</label>
+                <input
+                  type="text"
+                  id="first-name"
+                  placeholder="John Doe"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  disabled={isLoading}
+                  className="px-4 py-1 border border-slate-700 rounded-full text-gray-700 placeholder:text-sm focus:outline-none focus:border-slate-300 transition-colors"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label htmlFor="last-name" className="text-sm font-medium">Last Name</label>
+                <input
+                  type="text"
+                  id="last-name"
+                  placeholder="Doe"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  disabled={isLoading}
+                  className="px-4 py-1 border border-slate-700 rounded-full text-gray-700 placeholder:text-sm focus:outline-none focus:border-slate-300 transition-colors"
+                />
+              </div>
+              <div className="flex flex-col gap-2">
                 <label htmlFor="email" className="text-sm font-medium">Email</label>
                 <input
                   type="email"

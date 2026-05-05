@@ -8,6 +8,8 @@ export interface LoginRequest {
 export interface SignupRequest {
   email: string;
   password: string;
+  firstName: string 
+  lastName: string;
 }
 
 export interface AuthResponse {
@@ -21,4 +23,11 @@ export interface AuthState {
   isLoading: boolean;
   error: string | null;
   isAuthenticated: boolean;
+}
+
+export interface UpdateProfileRequest {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  password?: string;
 }
