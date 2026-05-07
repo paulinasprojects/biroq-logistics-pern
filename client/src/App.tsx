@@ -9,6 +9,7 @@ import PublicRoute from './components/routes/public-route';
 import ProtectedRoute from './components/routes/protected-route';
 import DashboardPage from './pages/dashboard-page';
 import HomeLayout from './components/layouts/home-layout';
+import DashboardLayout from './components/layouts/dashboard-layout';
 
 function App() {
 
@@ -28,8 +29,8 @@ function App() {
         <Route path="/signup" element={<SignupPage />} />
       </Route>
       <Route element={<ProtectedRoute />}>
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/profile" element={<HomeLayout><ProfilePage /></HomeLayout>} />
+        <Route path="/dashboard" element={<DashboardLayout><DashboardPage /></DashboardLayout>} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

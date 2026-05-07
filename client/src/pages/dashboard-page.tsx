@@ -11,7 +11,7 @@ const DashboardPage = () => {
   }
 
   return (
-    <div>
+    <div className="w-full h-screen">
       <button onClick={handleLogout}>
         Logout
       </button>
