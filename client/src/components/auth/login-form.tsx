@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import loginImage from "/login-image.png"
 import { useAuthStore } from "@/store/auth-store"
 import { SmallLogo } from "../common/small-logo";
@@ -11,7 +11,6 @@ export default function LoginForm() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const navigate = useNavigate();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -20,7 +19,6 @@ export default function LoginForm() {
 
     if (isAuthenticated) {
       toast.success("Logged in successfully")
-      navigate("/dashboard")
     }
   }
 
