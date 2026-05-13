@@ -9,36 +9,12 @@ import { SmallLogo } from '@/components/common/small-logo';
 import { useAuthStore } from '@/store/auth-store';
 
 const links = [
-  {
-    title: "Dashboard",
-    href: "/dashboard",
-    icon: House,
-  },
-  {
-    title: "Shipments",
-    href: "/shipments",
-    icon: Van,
-  },
-  {
-    title: "Pickups",
-    href: "/pickups",
-    icon: Package,
-  },
-  {
-    title: "Warehouses",
-    href: "/warehouses",
-    icon: Warehouse,
-  },
-  {
-    title: "Monitoring",
-    href: "/monitoring",
-    icon: Monitor,
-  },
-  {
-    title: "Analytics",
-    href: "/analytics",
-    icon: ChartColumnDecreasing,
-  },
+  { title: "Dashboard", href: "/dashboard", icon: House },
+  { title: "Shipments", href: "/shipments", icon: Van },
+  { title: "Pickups", href: "/pickups", icon: Package },
+  { title: "Warehouses", href: "/warehouses", icon: Warehouse },
+  { title: "Monitoring", href: "/monitoring", icon: Monitor },
+  { title: "Analytics", href: "/analytics", icon: ChartColumnDecreasing },
 ]
 
 const sidebarVariants: Variants = {
@@ -83,7 +59,10 @@ const Sidebar = () => {
       className='flex flex-col h-screen border-r border-r-gray-200 bg-white select-none'
     >
       <div className='flex flex-col h-full pl-3 pt-5 pb-3'>
-        <div className={cn('flex items-center justify-between mb-4', isCollapsed && "justify-center")}>
+        <div className={cn(
+          'flex items-center justify-between mb-4',
+          isCollapsed && "justify-center")}
+        >
           <div className="flex items-center gap-3">
             {isMobile && (
               <Link to="/" className="ml-2 mt-2">
@@ -117,12 +96,22 @@ const Sidebar = () => {
           )}
         </div>
         <nav className='flex-1'>
-          <div className={cn('flex items-center gap-2 py-5 border-t border-b border-gray-200', isCollapsed ? "pl-3" : "pl-5")}>
+          <div className={cn(
+            'flex items-center gap-2 py-5 border-t border-b border-gray-200',
+            isCollapsed ? "pl-3" : "pl-5")}
+          >
             <Landmark className='size-4' />
-            {!isCollapsed && <span className='font-bold text-sm'>Galantic Gunt</span>}
+            {!isCollapsed && (
+              <span className='font-bold text-sm'>Galantic Gunt</span>
+            )}
           </div>
-          <div className={cn('pl-5 pt-4 text-gray-400', isCollapsed ? "hidden" : "block")}>
-            <h3 className='uppercase text-[12px] font-normal leading-[100%] tracking-[6%]'>Main menu</h3>
+          <div className={cn(
+            'pl-5 pt-4 text-gray-400',
+            isCollapsed ? "hidden" : "block")}
+          >
+            <h3 className='uppercase text-[12px] font-normal leading-[100%] tracking-[6%]'>
+              Main menu
+            </h3>
           </div>
           <motion.ul
             initial={false}
@@ -130,34 +119,51 @@ const Sidebar = () => {
             variants={listVariants}
             className='flex flex-col gap-2 mt-5'
           >
-            {links.map((link) => {
-              return (
-                <motion.li key={link.href}>
-                  <Link to={link.href} className={cn(
-                    "flex items-center text-sm px-3.5 py-3 font-medium text-gray-500 hover:bg-gray-100 transition-all",
-                    pathname === link.href && "bg-gray-200 font-semibold text-black rounded-md border-r-2 border-white",
-                    isCollapsed ? "justify-center px-0 rounded-full" : "gap-3 justify-start"
-                  )}>
-                    <link.icon className='w-4 h-4' />
-                    {!isCollapsed && <span className='text-sm'>{link.title}</span>}
-                  </Link>
-                </motion.li>
-              )
-            })}
+            {links.map((link) => (
+              <motion.li key={link.href}>
+                <Link to={link.href} className={cn(
+                  "flex items-center text-sm px-3.5 py-3 font-medium text-gray-500 hover:bg-gray-100 transition-all",
+                  pathname === link.href && "bg-gray-200 font-semibold text-black rounded-md border-r-2 border-white",
+                  isCollapsed ? "justify-center px-0 rounded-full" : "gap-3 justify-start"
+                )}>
+                  <link.icon className='w-4 h-4' />
+                  {!isCollapsed && (
+                    <span className='text-sm'>{link.title}</span>
+                  )}
+                </Link>
+              </motion.li>
+            ))}
           </motion.ul>
         </nav>
         <div className="mt-auto">
           <div className="h-px bg-gray-200 my-3" />
-          <motion.div variants={itemVariants} className={cn('flex items-center justify-between gap-2 ml-2 pt-2 pr-2', isCollapsed && "flex-col")}>
+          <motion.div
+            variants={itemVariants}
+            className={cn(
+              'flex items-center justify-between gap-2 ml-2 pt-2 pr-2',
+              isCollapsed && "flex-col")}
+          >
             <div className='flex gap-2 items-center'>
-              <img src="https://images.pexels.com/photos/7109090/pexels-photo-7109090.jpeg" alt="" className="w-8 h-8 rounded-full object-cover" />
-              {!isCollapsed && <span className='text-sm font-medium text-black'>{user?.firstName} {" "} {user?.lastName}</span>}
+              <img
+                src="/default-user.png"
+                alt="profile image"
+                className="w-8 h-8 rounded-full object-cover"
+              />
+              {!isCollapsed && (
+                <span className='text-sm font-medium text-black'>
+                  {user?.firstName} {" "} {user?.lastName}
+                </span>
+              )
+              }
             </div>
             <div>
-              <button className='flex gap-2 items-center' onClick={handleLogout}>
-                {!isCollapsed &&
+              <button
+                className='flex gap-2 items-center'
+                onClick={handleLogout}
+              >
+                {!isCollapsed && (
                   <span className='text-sm'> Logout</span>
-                }
+                )}
                 <LogOut className='size-4' />
               </button>
 

@@ -30,9 +30,9 @@ const ProfilePage = () => {
         </div>
       )}
       {error && mode === "view" && (
-        <div>
+        <span className="mt-5 text-red-400 text-sm">
           {error}
-        </div>
+        </span>
       )}
 
       {!isLoading && user && mode === "view" && (

@@ -30,7 +30,7 @@ export default function Header({ isAuthenticated, user }: Props) {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button className="flex items-center gap-2">
-                  <img src="https://images.pexels.com/photos/7109090/pexels-photo-7109090.jpeg" alt="" className="w-8 h-8 rounded-full object-cover" />
+                  <img src="/default-user.png" alt="profile image" className="w-8 h-8 rounded-full object-cover" />
                   <span className="text-black capitalize text-sm font-mono font-bold">{user?.firstName} {" "} {user?.lastName} </span>
                   <ChevronDown className="size-3" />
                 </button>

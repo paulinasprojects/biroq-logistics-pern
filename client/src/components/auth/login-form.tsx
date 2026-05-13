@@ -37,13 +37,13 @@ export default function LoginForm() {
           <div className="border border-[#e8e8e8] rounded-xl p-10">
             <div className="flex flex-col gap-2">
               <h3 className="text-2xl font-semibold">Welcome to Biroq</h3>
-              <p className="text-sm font-normal">Log in to continue managing your Sign in to continue <br /> managing your shipments and operations.</p>
+              <p className="text-sm font-normal">Log in to continue managing your operations and shipments.</p>
             </div>
             <form onSubmit={handleSubmit} className="flex flex-col gap-6">
               {error && (
-                <div className="mt-5 text-red-400 text-sm">
+                <span className="mt-5 text-red-400 text-sm">
                   {error}
-                </div>
+                </span>
               )}
               <div className="flex flex-col gap-2 mt-6">
                 <label htmlFor="email" className="text-sm font-medium">Email</label>
@@ -73,7 +73,7 @@ export default function LoginForm() {
                     type="button"
                     onClick={togglePasswordVisibility}
                     disabled={isLoading}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowe"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {showPassword ? (
                       <EyeOff className="size-5" />

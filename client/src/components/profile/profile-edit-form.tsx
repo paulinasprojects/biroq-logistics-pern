@@ -54,16 +54,16 @@ export default function ProfileEditForm({ onCancel }: ProfileEditFormProps) {
       </div>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         {error && (
-          <div>
+          <span className="mt-5 text-red-400 text-sm">
             {error}
-          </div>
+          </span>
         )}
         <div className="flex flex-col gap-2 mt-6">
           <label htmlFor="first-name" className="text-sm font-medium">First Name</label>
           <input
             type="text"
             id="first-name"
-            placeholder="John Doe"
+            placeholder="John"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             disabled={isLoading}
@@ -110,7 +110,7 @@ export default function ProfileEditForm({ onCancel }: ProfileEditFormProps) {
               type="button"
               onClick={togglePasswordVisibility}
               disabled={isLoading}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowe"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {showPassword ? (
                 <EyeOff className="size-5" />
