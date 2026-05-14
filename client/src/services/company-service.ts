@@ -27,3 +27,8 @@ export const updateCompany = async (id: string, data: {
   const response = await api.post<ApiResponse<Company>>(`/company/${id}`, data);
   return response.data;
 }
+
+export const deleteCompany = async (id: string) => {
+  const response = await api.delete<ApiResponse<Company>>(`/company/${id}`);
+  return response.data;
+}

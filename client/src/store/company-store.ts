@@ -1,6 +1,6 @@
 import { AxiosError } from "axios";
 import { create } from "zustand";
-import { createCompany as createCompanyService, getCompany as getCompanyService, updateCompany as updateCompanyService } from "@/services/company-service";
+import { createCompany as createCompanyService, deleteCompany as deleteCompanyService, getCompany as getCompanyService, updateCompany as updateCompanyService } from "@/services/company-service";
 import { CompanyState } from "@/types/company-types";
 
 interface CompanyStore extends CompanyState {
@@ -18,6 +18,7 @@ interface CompanyStore extends CompanyState {
     shippingOrigin: string;
     averageMonthlyShipments: number;
     businessType: string}) => Promise<void>;
+  deleteCompany: (id: string) => Promise<void>;  
   clearError: () => void;
 }
 
@@ -99,6 +100,24 @@ export const useCompanyStore = create<CompanyStore>((set) => ({
           isLoading: false,
         })
       }
+  },
+  deleteCompany: async (id: string) => {
+    set({isLoading: true, error: null})
+
+    try {
+      await deleteCompanyService(id);
+      set({
+        company: null,
+        isLoading: false,
+        error: null,
+      })
+    } catch (error) {
+       const err = error as AxiosError<{error: string}>;
+        set({
+          error: err.response?.data?.error,
+          isLoading: false,
+        })
+    }
   },
   clearError: () => {
     set({ error: null })

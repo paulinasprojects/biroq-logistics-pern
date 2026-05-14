@@ -4,11 +4,15 @@ import { Building, Loader2, Plus } from "lucide-react";
 import CompanyModal from "@/components/company/company-modal";
 import { Company } from "@/types/types";
 import CompanyCard from "@/components/company/company-card";
+import DeletingCompanyModal from "@/components/company/deleting-company-modal";
+import { toast } from "sonner";
 
 const CompanyPage = () => {
-  const { isLoading, error, getCompany, company } = useCompanyStore();
+  const { isLoading, error, getCompany, company, deleteCompany } = useCompanyStore();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [editingCompany, setEditingCompany] = useState<Company | undefined>(undefined);
+  const [deletingCompany, setDeletingCompany] = useState<Company | undefined>(undefined);
+  const [isDeletingModalOpen, setIsDeletingModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     getCompany();
@@ -20,6 +24,16 @@ const CompanyPage = () => {
     setIsModalOpen(true)
   }
 
+  function handleDelete(company: Company) {
+    setDeletingCompany(company);
+    setIsDeletingModalOpen(true)
+  }
+
+  function handleCancel() {
+    setIsDeletingModalOpen(false)
+    setDeletingCompany(undefined);
+  }
+
 
   function handleAddCompany() {
     setEditingCompany(undefined);
@@ -29,6 +43,18 @@ const CompanyPage = () => {
   function handleCloseModal() {
     setEditingCompany(undefined)
     setIsModalOpen(false)
+  }
+
+  async function handleDeleteConfirm() {
+    if (!deletingCompany) return;
+    await deleteCompany(deletingCompany?.id)
+    const { error: deleteError } = useCompanyStore.getState();
+
+    if (!deleteError) {
+      toast.success("Company deleted successfully")
+      setIsDeletingModalOpen(false)
+      setDeletingCompany(undefined);
+    }
   }
 
   if (isLoading) {
@@ -70,9 +96,16 @@ const CompanyPage = () => {
   return (
     <div>
       <div>
-        <CompanyCard onEdit={handleEdit} company={company} />
+        <CompanyCard onEdit={handleEdit} company={company} onDelete={handleDelete} />
       </div>
       <CompanyModal isOpen={isModalOpen} onClose={handleCloseModal} company={editingCompany} />
+      <DeletingCompanyModal
+        isOpen={isDeletingModalOpen}
+        company={deletingCompany}
+        onConfirm={handleDeleteConfirm}
+        isDeleting={isLoading}
+        onCancel={handleCancel}
+      />
     </div>
   )
 }
