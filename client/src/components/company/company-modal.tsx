@@ -1,20 +1,24 @@
 import { X } from "lucide-react";
 import React from "react";
 import CompanyForm from "./company-form";
+import { Company } from "@/types/types";
+import { useCompanyStore } from "@/store/company-store";
 
 interface CompanyModalProps {
   isOpen: boolean;
   onClose: () => void;
+  company?: Company
 
 }
 
-export default function CompanyModal({ isOpen, onClose }: CompanyModalProps) {
-
+export default function CompanyModal({ isOpen, onClose, company }: CompanyModalProps) {
+  const { clearError } = useCompanyStore();
 
   if (!isOpen) return null;
 
   function handleClose() {
     onClose();
+    clearError();
   }
 
   function handleClickOutside(e: React.MouseEvent<HTMLDivElement>) {
@@ -32,7 +36,7 @@ export default function CompanyModal({ isOpen, onClose }: CompanyModalProps) {
             <X className="size-5" />
           </button>
         </div>
-        <CompanyForm onSuccess={handleClose} />
+        <CompanyForm onSuccess={handleClose} company={company} />
       </div>
     </div>
   )

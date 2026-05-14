@@ -2,33 +2,42 @@ import React, { useState } from "react";
 import { useCompanyStore } from "@/store/company-store";
 import { BusinessType, ShippingOrigin } from "@/types/company-types";
 import { toast } from "sonner";
+import { Company } from "@/types/types";
 
 interface CompanyFormProps {
   onSuccess: () => void;
+  company?: Company
 }
 
 
-export default function CompanyForm({ onSuccess }: CompanyFormProps) {
-  const { createCompany, error, isLoading } = useCompanyStore();
-  const [name, setName] = useState<string>("");
-  const [address, setAddress] = useState<string>("");
-  const [businessType, setBusinessType] = useState<BusinessType>(BusinessType.ECOMMERCE);
-  const [averageMonthlyShipments, setAverageMonthlyShipment] = useState("");
-  const [shippingOrigin, setShippingOrigin] = useState<ShippingOrigin>(ShippingOrigin.WAREHOUSE);
+export default function CompanyForm({ onSuccess, company }: CompanyFormProps) {
+  const { createCompany, updateCompany, clearError, error, isLoading } = useCompanyStore();
+  const [name, setName] = useState<string>(company?.name ?? "");
+  const [address, setAddress] = useState<string>(company?.address ?? "");
+  const [businessType, setBusinessType] = useState<BusinessType>(company?.businessType as BusinessType || BusinessType.ECOMMERCE);
+  const [averageMonthlyShipments, setAverageMonthlyShipment] = useState<number | string>(company?.averageMonthlyShipments ?? "");
+  const [shippingOrigin, setShippingOrigin] = useState<ShippingOrigin>(company?.shippingOrigin as ShippingOrigin || ShippingOrigin.WAREHOUSE);
 
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    clearError();
 
     const data = {
       name,
       address,
       businessType,
-      averageMonthlyShipments: parseFloat(averageMonthlyShipments),
+      averageMonthlyShipments: Number(averageMonthlyShipments),
       shippingOrigin
     }
 
-    await createCompany(data);
+    if (company) {
+      await updateCompany(company.id, data);
+      toast.success("Company updated successfully")
+    } else {
+      await createCompany(data);
+      toast.success("Company created successfully")
+    }
 
     const { error: currentError } = useCompanyStore.getState();
 
@@ -38,7 +47,6 @@ export default function CompanyForm({ onSuccess }: CompanyFormProps) {
       setBusinessType(BusinessType.ECOMMERCE)
       setAverageMonthlyShipment("")
       setShippingOrigin(ShippingOrigin.WAREHOUSE);
-      toast.success("Company created successfully")
 
       if (onSuccess) {
         onSuccess()
@@ -88,7 +96,7 @@ export default function CompanyForm({ onSuccess }: CompanyFormProps) {
               disabled={isLoading}
               placeholder="10"
               min={0}
-              onChange={(e) => setAverageMonthlyShipment(e.target.value)}
+              onChange={(e) => setAverageMonthlyShipment(e.target.value === "" ? "" : parseFloat(e.target.value))}
               className="px-4 py-3 border border-slate-700 rounded-sm text-gray-700 placeholder:text-sm focus:outline-none focus:border-slate-300 transition-colors"
             />
           </div>
@@ -126,7 +134,7 @@ export default function CompanyForm({ onSuccess }: CompanyFormProps) {
             </select>
           </div>
           <button type="submit" disabled={isLoading} className="px-6 py-3 bg-amber-600 text-gray-100 rounded-sm hover:bg-amber-700 transition-colors cursor-pointer font-medium">
-            {isLoading ? "Creating..." : "Create company"}
+            {isLoading ? "Creating..." : company ? "Save changes" : "Create company"}
           </button>
         </div>
       </form>
