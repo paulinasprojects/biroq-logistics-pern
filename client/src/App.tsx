@@ -10,6 +10,7 @@ import ProtectedRoute from './components/routes/protected-route';
 import DashboardPage from './pages/dashboard-page';
 import HomeLayout from './components/layouts/home-layout';
 import DashboardLayout from './components/layouts/dashboard-layout';
+import CompanyPage from './pages/company-page';
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
       <Route element={<ProtectedRoute />}>
         <Route path="/profile" element={<HomeLayout><ProfilePage /></HomeLayout>} />
         <Route path="/dashboard" element={<DashboardLayout><DashboardPage /></DashboardLayout>} />
+        <Route path="/company" element={<DashboardLayout><CompanyPage /></DashboardLayout>} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

@@ -13,3 +13,21 @@ export interface User {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface Company {
+  id: string;
+  userId: string;
+  name: string;
+  address: string;
+  businessType: string;
+  averageMonthlyShipments: number;
+  shippingOrigin: string;
+  createdAt: string;
+  updatedAt: string;
+  user?: User; 
+}
+
+
+export interface WarehouseImage {
+  image: string;
+}

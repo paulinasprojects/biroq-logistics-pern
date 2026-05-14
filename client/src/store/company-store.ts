@@ -1,0 +1,78 @@
+import { AxiosError } from "axios";
+import { create } from "zustand";
+import { createCompany as createCompanyService, getCompany as getCompanyService } from "@/services/company-service";
+import { CompanyState } from "@/types/company-types";
+
+interface CompanyStore extends CompanyState {
+  createCompany: (data: {
+    name: string;
+    address: string;
+    shippingOrigin: string;
+    averageMonthlyShipments: number;
+    businessType: string;
+  }) => Promise<void>;
+  getCompany: () => Promise<void>;
+  clearError: () => void;
+}
+
+export const useCompanyStore = create<CompanyStore>((set) => ({
+  company: null,
+  isLoading: false,
+  error: null,
+  createCompany: async (data: {
+    name: string;
+    address: string;
+    shippingOrigin: string;
+    averageMonthlyShipments: number;
+    businessType: string;
+  }) => {
+    set({ isLoading: true, error: null })
+    try {
+      const response = await createCompanyService(data);
+      if (response.data) {
+        set(() => ({
+          company: response.data,
+          isLoading: false,
+          error: null
+        }))
+      }
+    } catch (error) {
+      const err = error as AxiosError<{error: string}>;
+      set({
+        error: err.response?.data?.error,
+        isLoading: false,
+      })
+    }
+  },
+  getCompany: async () => {
+    set({
+      isLoading: true,
+      error: null,
+    });
+
+    try {
+      const response = await getCompanyService();
+
+      if (response.data) {
+        set({
+          company: response.data,
+          isLoading: false,
+          error: null
+        })
+      }
+    } catch (error) {
+      const err = error as AxiosError<{error: string}>;
+        if (err.response?.status === 404) {
+      set({ company: null, isLoading: false, error: null });
+      return;
+    }
+      set({
+        error: err.response?.data?.error,
+        isLoading: false,
+      })
+    }
+  },
+  clearError: () => {
+    set({ error: null })
+  }
+}));

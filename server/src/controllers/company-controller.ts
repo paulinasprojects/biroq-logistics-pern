@@ -31,10 +31,9 @@ export const createCompany = asyncHandler(
   }
 );
 
-export const getCompanyById = asyncHandler(
+export const getCompanyByUserId = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
      const userId = req.userId;
-     const { id } = req.params;
 
      const user = await User.findOne({
       where: {
@@ -48,7 +47,6 @@ export const getCompanyById = asyncHandler(
 
      const company = await Company.findOne({
       where: {
-        id: id,
         userId: userId,
       }
      });

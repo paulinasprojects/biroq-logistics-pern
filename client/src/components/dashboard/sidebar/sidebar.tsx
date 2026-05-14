@@ -1,15 +1,18 @@
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { TextLogo } from '@/components/common/text-logo';
-import { House, Monitor, Van, Warehouse, ChartColumnDecreasing, ChevronLeft, Landmark, Package, LogOut } from 'lucide-react';
+import { House, Monitor, Building, Van, Warehouse, ChartColumnDecreasing, ChevronLeft, Landmark, Package, LogOut } from 'lucide-react';
 import { cn } from '@/utils/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useSidebar } from './sidebar-context';
 import { SmallLogo } from '@/components/common/small-logo';
 import { useAuthStore } from '@/store/auth-store';
+import { useCompanyStore } from '@/store/company-store';
+import { useEffect } from 'react';
 
 const links = [
   { title: "Dashboard", href: "/dashboard", icon: House },
+  { title: "Company", href: "/company", icon: Building },
   { title: "Shipments", href: "/shipments", icon: Van },
   { title: "Pickups", href: "/pickups", icon: Package },
   { title: "Warehouses", href: "/warehouses", icon: Warehouse },
@@ -44,7 +47,12 @@ const Sidebar = () => {
   const isCollapsed = cannotExpand ? true : collapsed;
   const { pathname } = useLocation();
   const { user, logout } = useAuthStore();
+  const { company, getCompany } = useCompanyStore();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getCompany();
+  }, [getCompany])
 
   function handleLogout() {
     logout();
@@ -102,7 +110,7 @@ const Sidebar = () => {
           >
             <Landmark className='size-4' />
             {!isCollapsed && (
-              <span className='font-bold text-sm'>Galantic Gunt</span>
+              <span className='font-bold text-sm'>{company?.name || "No company"}</span>
             )}
           </div>
           <div className={cn(
