@@ -13,9 +13,9 @@ import { useEffect } from 'react';
 const links = [
   { title: "Dashboard", href: "/dashboard", icon: House },
   { title: "Company", href: "/company", icon: Building },
+  { title: "Warehouses", href: "/warehouses", icon: Warehouse },
   { title: "Shipments", href: "/shipments", icon: Van },
   { title: "Pickups", href: "/pickups", icon: Package },
-  { title: "Warehouses", href: "/warehouses", icon: Warehouse },
   { title: "Monitoring", href: "/monitoring", icon: Monitor },
   { title: "Analytics", href: "/analytics", icon: ChartColumnDecreasing },
 ]

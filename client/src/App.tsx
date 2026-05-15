@@ -11,6 +11,7 @@ import DashboardPage from './pages/dashboard-page';
 import HomeLayout from './components/layouts/home-layout';
 import DashboardLayout from './components/layouts/dashboard-layout';
 import CompanyPage from './pages/company-page';
+import WarehousesPage from './pages/warhouses-page';
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
         <Route path="/profile" element={<HomeLayout><ProfilePage /></HomeLayout>} />
         <Route path="/dashboard" element={<DashboardLayout><DashboardPage /></DashboardLayout>} />
         <Route path="/company" element={<DashboardLayout><CompanyPage /></DashboardLayout>} />
+        <Route path="/warehouses" element={<DashboardLayout><WarehousesPage /></DashboardLayout>} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

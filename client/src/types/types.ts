@@ -27,6 +27,20 @@ export interface Company {
   user?: User; 
 }
 
+export interface Warehouse {
+  id: string;
+  companyId: string;
+  name: string;
+  address: string;
+  description: string | null;
+  image: string | null;
+  capacity: number;
+  currentOccupancy: number;
+  createdAt: string;
+  updatedAt: string;
+  company?: Company;
+}
+
 
 export interface WarehouseImage {
   image: string;

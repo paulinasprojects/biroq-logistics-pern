@@ -30,7 +30,7 @@ app.get("/", (req: Request, res: Response) => {
 app.use("/api/auth", userRoutes);
 app.use("/api/profile", profileRoutes);
 app.use("/api/company", companyRoutes);
-app.use("/api/warehouse", warehouseRoutes);
+app.use("/api/warehouses", warehouseRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

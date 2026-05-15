@@ -68,6 +68,36 @@ export const getWarehouseById = asyncHandler(
   }
 )
 
+export const getAllWarehouses = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+  const userId = req.userId;
+
+
+    const company = await Company.findOne({
+      where: {
+        userId: userId,
+      }
+     });
+
+     if (!company) {
+      throw new AppError("No company found", 404);
+     }
+
+     const warehouses = await Warehouse.findAll({
+      where: {
+        companyId: company.id,
+      },
+      order: [["name", "DESC"]]
+     });
+
+     if (!warehouses) {
+        sendSuccess(res, [], "No warehouses found. Create your first warehouse to get started")
+        return;
+      };
+
+      sendSuccess(res, warehouses, "Warehouses retrieved successfully.")
+});
+
 export const updateWarehouseById = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const { address, name, capacity,  description, image, currentOccupancy } = req.body
