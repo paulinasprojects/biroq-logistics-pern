@@ -3,6 +3,7 @@ import { useCompanyStore } from "@/store/company-store";
 import { BusinessType, ShippingOrigin } from "@/types/company-types";
 import { toast } from "sonner";
 import { Company } from "@/types/types";
+import { Select, SelectContent, SelectOption, SelectTrigger } from "./select";
 
 interface CompanyFormProps {
   onSuccess: () => void;
@@ -58,7 +59,7 @@ export default function CompanyForm({ onSuccess, company }: CompanyFormProps) {
 
 
   return (
-    <div className="col-span-3 sm:col-span-3 flex flex-col gap-6 p-6">
+    <div className="col-span-3 sm:col-span-3 flex flex-col py-3 px-6">
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         {error && (
           <p className="text-red-500">{error}</p>
@@ -102,36 +103,37 @@ export default function CompanyForm({ onSuccess, company }: CompanyFormProps) {
           </div>
           <div className="flex flex-col gap-2">
             <label htmlFor="business-type" className="text-sm font-medium">Business Type</label>
-            <select
-              name="business-type" id="business-type"
+            <Select
+              id="business-type"
               value={businessType}
-              onChange={(e) => setBusinessType(e.target.value as BusinessType)}
-              disabled={isLoading}
-              className="px-4 py-3 border border-slate-700 rounded-sm text-gray-700 placeholder:text-sm focus:outline-none focus:border-slate-300 transition-colors"
+              onValueChange={(value) => setBusinessType(value as BusinessType)}
             >
-              {Object.values(BusinessType).map((business) => (
-                <option value={business} key={business}>
-                  {business}
-                </option>
-              ))}
-            </select>
+              <SelectTrigger placeholder="Choose a business type" />
+              <SelectContent>
+                {Object.values(BusinessType).map((business) => (
+                  <SelectOption value={business} key={business}>
+                    {business}
+                  </SelectOption>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
           <div className="flex flex-col gap-2">
             <label htmlFor="shipment-origin" className="text-sm font-medium">Shipment Origin</label>
-            <select
-              name="shipment-origin"
+            <Select
               id="shipment-origin"
               value={shippingOrigin}
-              onChange={(e) => setShippingOrigin(e.target.value as ShippingOrigin)}
-              disabled={isLoading}
-              className="px-4 py-3 border border-slate-700 rounded-sm text-gray-700 placeholder:text-sm focus:outline-none focus:border-slate-300 transition-colors"
+              onValueChange={(value) => setShippingOrigin(value as ShippingOrigin)}
             >
-              {Object.values(ShippingOrigin).map((origin) => (
-                <option value={origin} key={origin}>
-                  {origin}
-                </option>
-              ))}
-            </select>
+              <SelectTrigger placeholder="Choose a shipping origin" />
+              <SelectContent>
+                {Object.values(ShippingOrigin).map((origin) => (
+                  <SelectOption value={origin} key={origin}>
+                    {origin}
+                  </SelectOption>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
           <button type="submit" disabled={isLoading} className="px-6 py-3 bg-amber-600 text-gray-100 rounded-sm hover:bg-amber-700 transition-colors cursor-pointer font-medium">
             {isLoading ? "Creating..." : company ? "Save changes" : "Create company"}

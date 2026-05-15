@@ -78,13 +78,12 @@ const CompanyPage = () => {
     return (
       <main>
         <div className="flex flex-col items-center justify-center min-h-[60vh] gap-6">
-
           <Building className="size-24" />
           <div className="text-center">
             <h2>No company yet</h2>
             <p>Start by creating your company</p>
           </div>
-          <button onClick={handleAddCompany} className="flex items-center gap-2 px-6 py-3 bg-amber-600 text-gray-100">
+          <button onClick={handleAddCompany} className="flex items-center gap-2 px-6 py-3 bg-amber-600 text-gray-100 hover:bg-amber-700">
             <Plus className="size-5" />
             Add a company
           </button>
