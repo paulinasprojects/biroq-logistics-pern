@@ -11,7 +11,7 @@ import DashboardPage from './pages/dashboard-page';
 import HomeLayout from './components/layouts/home-layout';
 import DashboardLayout from './components/layouts/dashboard-layout';
 import CompanyPage from './pages/company-page';
-import WarehousesPage from './pages/warhouses-page';
+import WarehousesPage from './pages/warehouses-page';
 
 function App() {
 

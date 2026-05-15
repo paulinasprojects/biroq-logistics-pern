@@ -2,10 +2,11 @@ import { NextFunction, Request, Response } from "express";
 import { asyncHandler, sendSuccess } from "../utils/response-helpers";
 import { Company, Warehouse } from "../models";
 import { AppError } from "../middleware/error-handler";
+import { deleteCloudinaryImage } from "../utils/cloudinary-upload";
 
 export const createWarehouse = asyncHandler(
   async(req: Request, res: Response, next: NextFunction) => {
-    const { address, name, capacity,  description, image } = req.body;
+    const { address, name, capacity,  description } = req.body;
     const userId = req.userId;
 
     if (!name || !address || !capacity) {
@@ -22,8 +23,6 @@ export const createWarehouse = asyncHandler(
       throw new AppError("You must create a company before adding a warehouse", 404);
      }
 
-     // TODO: upload image to Cloudinary here and assign the returned URL to `image`
-
 
      const warehouse = await Warehouse.create({
       companyId: company.id,
@@ -31,12 +30,52 @@ export const createWarehouse = asyncHandler(
       name,
       capacity,
       description: description ?? null,
-      image : image ?? null,
      });
 
      sendSuccess(res, warehouse, "Warehouse created successfully!", 201)
   }
 )
+
+export const createeWarehouseImage = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    const userId = req.userId;
+
+    if (!req.file) {
+      throw new AppError("No image file provided", 400);
+    }
+
+    const company = await Company.findOne({
+      where: {
+        userId: userId
+      }
+    });
+
+    if (!company) {
+      throw new AppError("No company found", 404)
+    }
+
+    const warehouse = await Warehouse.findOne({
+      where: {
+        id,
+        companyId: company.id
+      }
+    });
+
+    if (!warehouse) {
+      throw new AppError("Warehouse not found", 404)
+    };
+
+    if (warehouse.image) {
+      await deleteCloudinaryImage(warehouse.image)
+    }
+
+    warehouse.image = req.file.path;
+    await warehouse.save();
+
+    sendSuccess(res, { image: warehouse.image }, "Image updaded successfully")
+
+})
 
 export const getWarehouseById = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -90,17 +129,12 @@ export const getAllWarehouses = asyncHandler(
       order: [["name", "DESC"]]
      });
 
-     if (!warehouses) {
-        sendSuccess(res, [], "No warehouses found. Create your first warehouse to get started")
-        return;
-      };
-
       sendSuccess(res, warehouses, "Warehouses retrieved successfully.")
 });
 
 export const updateWarehouseById = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { address, name, capacity,  description, image, currentOccupancy } = req.body
+    const { address, name, capacity,  description, currentOccupancy } = req.body
     const userId = req.userId;
     const { id } = req.params;
 
@@ -142,12 +176,6 @@ export const updateWarehouseById = asyncHandler(
       warehouse.description = description;
      }
 
-    // TODO: upload image to Cloudinary here and assign the returned URL to `image`
-
-     if (image !== undefined) {
-      warehouse.image = image
-     }
-
      if (currentOccupancy !== undefined) {
       warehouse.currentOccupancy = currentOccupancy;
      };
@@ -186,6 +214,6 @@ export const deleteWarehouseById = asyncHandler(
 
     await warehouse.destroy();
 
-    sendSuccess(res, null, "Warehouse deleted successfullh")
+    sendSuccess(res, null, "Warehouse deleted successfully")
   }
 )

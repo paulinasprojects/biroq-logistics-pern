@@ -33,7 +33,7 @@ export interface Warehouse {
   name: string;
   address: string;
   description: string | null;
-  image: string | null;
+  image?: string;
   capacity: number;
   currentOccupancy: number;
   createdAt: string;

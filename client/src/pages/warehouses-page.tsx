@@ -1,14 +1,23 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useWarehouseStore } from "@/store/warehouse-store";
 import { Loader2, Plus, WarehouseIcon } from "lucide-react";
-
+import WarehouseModal from "@/components/warehouse/warehouse-modal";
 
 const WarehousesPage = () => {
   const { getAllWarehouses, isLoading, warehouses, error } = useWarehouseStore();
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     getAllWarehouses();
   }, [getAllWarehouses]);
+
+  function handleAddWarehouse() {
+    setIsModalOpen(true)
+  }
+
+  function handleCloseModal() {
+    setIsModalOpen(false)
+  }
 
 
   if (isLoading) {
@@ -36,17 +45,24 @@ const WarehousesPage = () => {
             <h2>No warehouses found</h2>
             <p>Start by creating your first warehouse</p>
           </div>
-          <button className="flex items-center gap-2 px-6 py-3 bg-amber-600 hover:bg-amber-700 text-gray-100">
+          <button onClick={handleAddWarehouse} className="flex items-center gap-2 px-6 py-3 bg-amber-600 hover:bg-amber-700 text-gray-100">
             <Plus className="size-5" />
             Add a warehouse
           </button>
         </div>
+        <WarehouseModal isOpen={isModalOpen} onClose={handleCloseModal} />
       </main>
     )
   }
 
   return (
-    <div>WarehousesPage</div>
+    <div>
+      {warehouses.map((warehouse) => (
+        <div>
+          {warehouse.name}
+        </div>
+      ))}
+    </div>
   )
 }
 

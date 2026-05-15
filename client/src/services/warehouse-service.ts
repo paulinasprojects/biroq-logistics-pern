@@ -6,6 +6,16 @@ export const getAllWarehouses = async () => {
   return response.data;
 }
 
+export const createWarehouse = async (data: {
+  name: string,
+  address: string,
+  capacity: number,
+  description: string
+}) => {
+  const response = await api.post<ApiResponse<Warehouse>>("/warehouses", data);
+  return response.data;
+}
+
 export const uploadImage = async (file: File, id:string) => {
   const formData = new FormData();
   formData.append("image", file);
