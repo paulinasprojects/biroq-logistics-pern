@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useWarehouseStore } from "@/store/warehouse-store";
 import { Loader2, Plus, WarehouseIcon } from "lucide-react";
 import WarehouseModal from "@/components/warehouse/warehouse-modal";
+import WarehousesList from "@/components/warehouse/warehouse-list";
 
 const WarehousesPage = () => {
   const { getAllWarehouses, isLoading, warehouses, error } = useWarehouseStore();
@@ -45,7 +46,7 @@ const WarehousesPage = () => {
             <h2>No warehouses found</h2>
             <p>Start by creating your first warehouse</p>
           </div>
-          <button onClick={handleAddWarehouse} className="flex items-center gap-2 px-6 py-3 bg-amber-600 hover:bg-amber-700 text-gray-100">
+          <button onClick={handleAddWarehouse} className="flex items-center gap-2 px-4 py-3 bg-amber-600 hover:bg-amber-700 text-gray-100 rounded-sm transition font-medium">
             <Plus className="size-5" />
             Add a warehouse
           </button>
@@ -56,13 +57,25 @@ const WarehousesPage = () => {
   }
 
   return (
-    <div>
-      {warehouses.map((warehouse) => (
+    <main className="px-4 py-4">
+      <div className="pb-2 mb-4 flex items-center justify-between">
         <div>
-          {warehouse.name}
+          <h1 className="text-3xl font-bold text-black">Warehouses</h1>
+          <p className="text-gray-400 mt-1">Manage your warehouses</p>
         </div>
-      ))}
-    </div>
+        <button
+          onClick={handleAddWarehouse}
+          className="flex items-center gap-2 px-6 py-3 rounded-sm bg-amber-600 hover:bg-amber-700 text-gray-100"
+        >
+          <Plus className="size-5" />
+          <span className="hidden sm:block">Add warehouse</span>
+        </button>
+      </div>
+      <div>
+        <WarehousesList />
+      </div>
+      <WarehouseModal isOpen={isModalOpen} onClose={handleCloseModal} />
+    </main>
   )
 }
 

@@ -64,16 +64,16 @@ const Sidebar = () => {
       initial={false}
       animate={isCollapsed ? "collapsed" : "expanded"}
       variants={sidebarVariants}
-      className='flex flex-col h-screen border-r border-r-gray-200 bg-white select-none'
+      className='flex flex-col h-screen border-r pr-2 border-r-gray-200 bg-white select-none'
     >
-      <div className='flex flex-col h-full pl-3 pt-5 pb-3'>
+      <div className="flex flex-col h-full pl-3 pt-5 pb-3">
         <div className={cn(
           'flex items-center justify-between mb-4',
           isCollapsed && "justify-center")}
         >
           <div className="flex items-center gap-3">
             {isMobile && (
-              <Link to="/" className="ml-2 mt-2">
+              <Link to="/" className="ml-4 mt-2">
                 <SmallLogo className='size-6' />
               </Link>
             )}
@@ -132,7 +132,7 @@ const Sidebar = () => {
                 <Link to={link.href} className={cn(
                   "flex items-center text-sm px-3.5 py-3 font-medium text-gray-500 hover:bg-gray-100 transition-all",
                   pathname === link.href && "bg-gray-200 font-semibold text-black rounded-md border-r-2 border-white",
-                  isCollapsed ? "justify-center px-0 rounded-full" : "gap-3 justify-start"
+                  isCollapsed ? "justify-center px-0  rounded-full" : "gap-3 justify-start"
                 )}>
                   <link.icon className='w-4 h-4' />
                   {!isCollapsed && (
