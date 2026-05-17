@@ -2,7 +2,11 @@ import { useWarehouseStore } from "@/store/warehouse-store"
 import WarehouseCard from "./warehouse-card";
 import { Warehouse } from "lucide-react";
 
-export default function WarehouseList() {
+interface Props {
+  onEditImage: (warehouseId: string) => void;
+}
+
+export default function WarehouseList({ onEditImage }: Props) {
   const { warehouses } = useWarehouseStore();
 
   return (
@@ -23,6 +27,7 @@ export default function WarehouseList() {
           <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {warehouses.map((warehouse) => (
               <WarehouseCard
+                onEditImage={onEditImage}
                 warehouse={warehouse}
                 key={warehouse.id}
               />

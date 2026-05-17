@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios'
 import { create } from 'zustand'
-import { getAllWarehouses as getAllWarehousesService, createWarehouse as createWarehouseService } from '@/services/warehouse-service'
+import {uploadImage as uploadImageService, getAllWarehouses as getAllWarehousesService, createWarehouse as createWarehouseService } from '@/services/warehouse-service'
 import { WarehouseState } from '@/types/warehouse-types'
 
 interface WarehouseStore extends WarehouseState {
@@ -11,6 +11,8 @@ interface WarehouseStore extends WarehouseState {
   capacity: number,
   description: string
 }) => Promise<void>;
+  uploadImage: (file: File, id: string) => Promise<void>
+
 }
 
 export const useWarehouseStore = create<WarehouseStore>((set) => ({
@@ -68,5 +70,26 @@ export const useWarehouseStore = create<WarehouseStore>((set) => ({
       isLoading: false
     });
   }
-}
+},
+ uploadImage: async (file: File, id: string) => {
+  set({isLoading: true, error: null})
+  try {
+    const response = await uploadImageService(file, id);
+    if (response.data) {
+      const { image } = response.data;
+      set((state) => ({
+        warehouses: state.warehouses.map((w) => 
+          w.id === id ? {...w, image} : w),
+        isLoading: false,
+        error: null
+      }))
+  };
+  } catch (error) {
+    const err = error as AxiosError<{error: string}>;
+    set({
+      error: err.response?.data.error,
+      isLoading: false
+    })
+  }
+ }
 }));

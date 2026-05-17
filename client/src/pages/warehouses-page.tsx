@@ -3,10 +3,15 @@ import { useWarehouseStore } from "@/store/warehouse-store";
 import { Loader2, Plus, WarehouseIcon } from "lucide-react";
 import WarehouseModal from "@/components/warehouse/warehouse-modal";
 import WarehousesList from "@/components/warehouse/warehouse-list";
+// import { Warehouse } from "@/types/types";
+import WarehouseImageModal from "@/components/warehouse/warehouse-image-modal";
 
 const WarehousesPage = () => {
   const { getAllWarehouses, isLoading, warehouses, error } = useWarehouseStore();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  // const [editingWarehouse, setEditingWarehouse] = useState<Warehouse | undefined>(undefined);
+  const [editingImage, setEditingImage] = useState<string | undefined>(undefined);
+  const [isWarehouseModalOpen, setIsWarehouseModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     getAllWarehouses();
@@ -18,6 +23,20 @@ const WarehousesPage = () => {
 
   function handleCloseModal() {
     setIsModalOpen(false)
+  }
+
+  function handleCloseImageModal() {
+    setIsWarehouseModalOpen(false)
+  }
+
+  // function handleEditWarehouse(warehouse: Warehouse) {
+  //   setEditingWarehouse(warehouse);
+  //   setIsModalOpen(true);
+  // }
+
+  function handleEditImage(warehouseId: string) {
+    setEditingImage(warehouseId);
+    setIsWarehouseModalOpen(true)
   }
 
 
@@ -72,9 +91,10 @@ const WarehousesPage = () => {
         </button>
       </div>
       <div>
-        <WarehousesList />
+        <WarehousesList onEditImage={handleEditImage} />
       </div>
       <WarehouseModal isOpen={isModalOpen} onClose={handleCloseModal} />
+      <WarehouseImageModal isOpen={isWarehouseModalOpen} onClose={handleCloseImageModal} warehouseId={editingImage} />
     </main>
   )
 }

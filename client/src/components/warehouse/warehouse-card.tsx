@@ -2,11 +2,12 @@ import { Warehouse } from "@/types/types"
 import { ImageIcon, Pencil, Trash2 } from "lucide-react"
 
 interface Props {
-  warehouse: Warehouse
+  warehouse: Warehouse;
+  onEditImage: (warehouseId: string) => void;
 }
 
 
-export default function WarehouseCard({ warehouse }: Props) {
+export default function WarehouseCard({ warehouse, onEditImage }: Props) {
   return (
     <div className="text-black bg-white flex flex-col shadow-sm gap-6 rounded-xl border border-gray-300 p-4 transition-all duration-200 hover:shadow-md">
       <div className="flex flex-col gap-6">
@@ -33,7 +34,7 @@ export default function WarehouseCard({ warehouse }: Props) {
         <button title="Edit warehouse" className="p-2 text-gray-500 hover:text-blue-400 transition-colors opacity-50">
           <Pencil className="size-4" />
         </button>
-        <button title="Add image" className="p-2 text-gray-500 hover:text-green-400 transition-colors opacity-50">
+        <button title="Add image" className="p-2 text-gray-500 hover:text-green-400 transition-colors opacity-50" onClick={() => onEditImage(warehouse.id)}>
           <ImageIcon className="size-4" />
         </button>
         <button title="Delete warehouse" className="p-2 text-gray-500 hover:text-red-400 transition-colors opacity-50">
