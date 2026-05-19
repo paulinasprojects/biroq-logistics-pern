@@ -3,13 +3,13 @@ import { useWarehouseStore } from "@/store/warehouse-store";
 import { Loader2, Plus, WarehouseIcon } from "lucide-react";
 import WarehouseModal from "@/components/warehouse/warehouse-modal";
 import WarehousesList from "@/components/warehouse/warehouse-list";
-// import { Warehouse } from "@/types/types";
+import { Warehouse } from "@/types/types";
 import WarehouseImageModal from "@/components/warehouse/warehouse-image-modal";
 
 const WarehousesPage = () => {
   const { getAllWarehouses, isLoading, warehouses, error } = useWarehouseStore();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  // const [editingWarehouse, setEditingWarehouse] = useState<Warehouse | undefined>(undefined);
+  const [editingWarehouse, setEditingWarehouse] = useState<Warehouse | undefined>(undefined);
   const [editingImage, setEditingImage] = useState<string | undefined>(undefined);
   const [isWarehouseModalOpen, setIsWarehouseModalOpen] = useState<boolean>(false);
 
@@ -19,20 +19,22 @@ const WarehousesPage = () => {
 
   function handleAddWarehouse() {
     setIsModalOpen(true)
+    setEditingWarehouse(undefined);
   }
 
   function handleCloseModal() {
     setIsModalOpen(false)
+    setEditingWarehouse(undefined)
   }
 
   function handleCloseImageModal() {
     setIsWarehouseModalOpen(false)
   }
 
-  // function handleEditWarehouse(warehouse: Warehouse) {
-  //   setEditingWarehouse(warehouse);
-  //   setIsModalOpen(true);
-  // }
+  function handleEditWarehouse(warehouse: Warehouse) {
+    setEditingWarehouse(warehouse);
+    setIsModalOpen(true);
+  }
 
   function handleEditImage(warehouseId: string) {
     setEditingImage(warehouseId);
@@ -91,9 +93,9 @@ const WarehousesPage = () => {
         </button>
       </div>
       <div>
-        <WarehousesList onEditImage={handleEditImage} />
+        <WarehousesList onEditImage={handleEditImage} onEditWarehouse={handleEditWarehouse} />
       </div>
-      <WarehouseModal isOpen={isModalOpen} onClose={handleCloseModal} />
+      <WarehouseModal isOpen={isModalOpen} onClose={handleCloseModal} warehouse={editingWarehouse} key={editingWarehouse?.id ?? "new"} />
       <WarehouseImageModal isOpen={isWarehouseModalOpen} onClose={handleCloseImageModal} warehouseId={editingImage} />
     </main>
   )

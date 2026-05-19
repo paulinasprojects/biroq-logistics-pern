@@ -27,3 +27,13 @@ export const uploadImage = async (file: File, id:string) => {
 
   return response.data;
 };
+
+export const updateWarehouse = async (id: string, data: {
+  name: string,
+  address: string,
+  capacity: number,
+  description: string
+}) => {
+  const response = await api.post<ApiResponse<Warehouse>>(`/warehouses/${id}`, data);
+  return response.data;
+}

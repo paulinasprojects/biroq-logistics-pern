@@ -1,30 +1,39 @@
 import React, { useState } from "react";
 import { useWarehouseStore } from "@/store/warehouse-store";
 import { toast } from "sonner";
+import { Warehouse } from "@/types/types";
 
 interface WarehouseFormProps {
   onSuccess: () => void;
+  warehouse?: Warehouse
 }
 
 
-export default function WarehouseForm({ onSuccess }: WarehouseFormProps) {
-  const { createWarehouse, error, isLoading } = useWarehouseStore();
-  const [name, setName] = useState<string>("");
-  const [address, setAddress] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
-  const [capacity, setCapacity] = useState("");
+export default function WarehouseForm({ onSuccess, warehouse }: WarehouseFormProps) {
+  const { createWarehouse, error, isLoading, updateWarehouse, clearError } = useWarehouseStore();
+  const [name, setName] = useState<string>(warehouse?.name ?? "");
+  const [address, setAddress] = useState<string>(warehouse?.address ?? "");
+  const [description, setDescription] = useState<string>(warehouse?.description ?? "");
+  const [capacity, setCapacity] = useState<number | string>(warehouse?.capacity ?? "");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    clearError();
 
     const data = {
       name,
       address,
       description,
-      capacity: parseFloat(capacity)
+      capacity: Number(capacity)
     }
 
-    await createWarehouse(data);
+    if (warehouse) {
+      await updateWarehouse(warehouse.id, data);
+      toast.success("Warehouse updated successfully")
+    } else {
+      await createWarehouse(data);
+      toast.success("Warehouse created successfuly")
+    }
 
     const { error: currentError } = useWarehouseStore.getState();
 
@@ -32,15 +41,13 @@ export default function WarehouseForm({ onSuccess }: WarehouseFormProps) {
       setName("")
       setAddress("")
       setDescription("")
-      setCapacity("");
-      //TODO: Remove the toast after adding the updating logic
-      toast.success("Warehouse created successfuly");
+      setCapacity(0);
 
       if (onSuccess) {
         onSuccess();
       }
     } else {
-      toast.error("Failed to create a warehouse")
+      toast.error(`Failed to ${warehouse ? "update" : "create"} a warehouse`)
     }
   }
 
@@ -103,7 +110,7 @@ export default function WarehouseForm({ onSuccess }: WarehouseFormProps) {
             disabled={isLoading}
             className="px-6 py-3 bg-amber-600 text-gray-100 rounded-sm hover:bg-amber-700 transition-colors cursor-pointer font-medium"
           >
-            {isLoading ? "Creating..." : "Create warehouse"}
+            {isLoading ? "Creating..." : warehouse ? "Save changes" : "Create warehouse"}
           </button>
         </div>
       </form>

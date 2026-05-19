@@ -1,19 +1,21 @@
 import { useWarehouseStore } from "@/store/warehouse-store"
 import WarehouseCard from "./warehouse-card";
-import { Warehouse } from "lucide-react";
+import { WarehouseIcon } from "lucide-react";
+import { Warehouse } from "@/types/types";
 
 interface Props {
   onEditImage: (warehouseId: string) => void;
+  onEditWarehouse: (warehouse: Warehouse) => void
 }
 
-export default function WarehouseList({ onEditImage }: Props) {
+export default function WarehouseList({ onEditImage, onEditWarehouse }: Props) {
   const { warehouses } = useWarehouseStore();
 
   return (
     <section className="col-span-3 flex flex-col gap-6">
       {warehouses.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-24 gap-4">
-          <Warehouse className="size-24 text-black" strokeWidth={1} />
+          <WarehouseIcon className="size-24 text-black" strokeWidth={1} />
           <div className="text-center">
             <p className="text-xl text-gray-400 font-medium">No warehouses found</p>
             <p className="text-gray-500 mt-1">Start by adding your first warehouse</p>
@@ -30,6 +32,7 @@ export default function WarehouseList({ onEditImage }: Props) {
                 onEditImage={onEditImage}
                 warehouse={warehouse}
                 key={warehouse.id}
+                onEditWarehouse={onEditWarehouse}
               />
             ))}
           </div>
