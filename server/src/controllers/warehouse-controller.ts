@@ -36,7 +36,7 @@ export const createWarehouse = asyncHandler(
   }
 )
 
-export const createeWarehouseImage = asyncHandler(
+export const createWarehouseImage = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
     const userId = req.userId;
@@ -73,7 +73,7 @@ export const createeWarehouseImage = asyncHandler(
     warehouse.image = req.file.path;
     await warehouse.save();
 
-    sendSuccess(res, { image: warehouse.image }, "Image updaded successfully")
+    sendSuccess(res, { image: warehouse.image }, "Image updated successfully")
 
 })
 

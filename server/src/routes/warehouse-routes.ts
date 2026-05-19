@@ -1,12 +1,12 @@
 import { Router } from "express";
 import { requireAuth } from "../middleware/auth-middleware";
-import { createWarehouse, getAllWarehouses, getWarehouseById, deleteWarehouseById, updateWarehouseById, createeWarehouseImage } from "../controllers/warehouse-controller";
-import { cloudinaryUpload } from "../utils/cloudinary-upload";
+import { createWarehouse, getAllWarehouses, getWarehouseById, deleteWarehouseById, updateWarehouseById, createWarehouseImage } from "../controllers/warehouse-controller";
+import { warehouseUpload } from "../utils/cloudinary-upload";
 
 const router = Router();
 
 router.post("/", requireAuth, createWarehouse);
-router.post("/:id/image", requireAuth, cloudinaryUpload.single("image"), createeWarehouseImage)
+router.post("/:id/image", requireAuth, warehouseUpload.single("image"), createWarehouseImage)
 router.get("/", requireAuth, getAllWarehouses);
 router.get("/:id", requireAuth, getWarehouseById);
 router.post("/:id", requireAuth, updateWarehouseById);

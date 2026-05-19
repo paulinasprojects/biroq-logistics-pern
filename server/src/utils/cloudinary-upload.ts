@@ -11,33 +11,41 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-const storage = new CloudinaryStorage({
-  cloudinary,
-  params: {
-    folder: "warehouses",
-    allowed_formats: ["jpg", "jpeg", "png", "webp"],
-    transformation: [
-      { width: 1200, height: 800, crop: "limit" },
-      { quality: "auto" },
-      { fetch_format: "auto" },
-    ],
-  } as object,
-});
+export const createUpload = (folder: string) => {
+  const storage = new CloudinaryStorage({
+    cloudinary,
+    params: {
+      folder,
+      allowed_formats: ["jpg", "jpeg", "png", "webp"],
+      transformation: [
+        { width: 1200, height: 800, crop: "limit" },
+        { quality: "auto" },
+        { fetch_format: "auto" },
+      ],
+    } as object,
+  });
 
-export const cloudinaryUpload = multer({
-  storage,
-  limits: {
-    fileSize: 5 * 1024 * 1024,
-  },
-  fileFilter: (_req, file, cb) => {
-    const allowed = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
-    if (allowed.includes(file.mimetype)) {
-      cb(null, true)
-    } else {
-      cb(new Error("Only jpg, jpeg, png and webp images are allowed"));
-    }
-  },
-});
+  return multer({
+   storage,
+   limits: {
+     fileSize: 5 * 1024 * 1024,
+   },
+   fileFilter: (_req, file, cb) => {
+     const allowed = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
+     if (allowed.includes(file.mimetype)) {
+       cb(null, true)
+     } else {
+       cb(new Error("Only jpg, jpeg, png and webp images are allowed"));
+     }
+   },
+  });
+};
+
+export const warehouseUpload = createUpload("warehouses");
+export const companyUpload = createUpload("companies");
+export const avatarUpload = createUpload("avatars");
+
+
 
 export const deleteCloudinaryImage = async (imageUrl: string): Promise<void> => {
   try {

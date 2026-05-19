@@ -1,6 +1,13 @@
 import { AxiosError } from "axios";
 import { create } from "zustand";
-import { createCompany as createCompanyService, deleteCompany as deleteCompanyService, getCompany as getCompanyService, updateCompany as updateCompanyService } from "@/services/company-service";
+import { 
+    createCompany as createCompanyService, 
+    deleteCompany as deleteCompanyService, 
+    getCompany as getCompanyService, 
+    updateCompany as updateCompanyService,
+    uploadCompanyImage as uploadCompanyImageService
+  } 
+    from "@/services/company-service";
 import { CompanyState } from "@/types/company-types";
 
 interface CompanyStore extends CompanyState {
@@ -11,6 +18,7 @@ interface CompanyStore extends CompanyState {
     averageMonthlyShipments: number;
     businessType: string;
   }) => Promise<void>;
+  uploadCompanyImage: (file: File, id: string) => Promise<void>;
   getCompany: () => Promise<void>;
   updateCompany: (id: string, data: {
     name: string;
@@ -45,6 +53,26 @@ export const useCompanyStore = create<CompanyStore>((set) => ({
       }
     } catch (error) {
       const err = error as AxiosError<{error: string}>;
+      set({
+        error: err.response?.data?.error,
+        isLoading: false,
+      })
+    }
+  },
+  uploadCompanyImage: async (file: File, id: string) => {
+    set({ isLoading: true, error: null })
+    try {
+      const response = await uploadCompanyImageService(file, id);
+      if (response.data) {
+        const { image } = response.data;
+        set((state) => ({
+          company: state.company ? {...state.company, image} : null,
+          isLoading: false,
+          error: null,
+        }))
+      }
+    } catch (error) {
+       const err = error as AxiosError<{error: string}>;
       set({
         error: err.response?.data?.error,
         isLoading: false,

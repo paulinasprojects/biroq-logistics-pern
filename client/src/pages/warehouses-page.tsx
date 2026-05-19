@@ -13,7 +13,7 @@ const WarehousesPage = () => {
   const [editingWarehouse, setEditingWarehouse] = useState<Warehouse | undefined>(undefined);
   const [deletingWarehouse, setDeletingWarehouse] = useState<Warehouse | undefined>(undefined);
   const [editingImage, setEditingImage] = useState<string | undefined>(undefined);
-  const [isWarehouseModalOpen, setIsWarehouseModalOpen] = useState<boolean>(false);
+  const [isWarehouseImageModal, setIsWarehouseImageModalOpen] = useState<boolean>(false);
   const [isDeletingModalOpen, setIsDelingModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ const WarehousesPage = () => {
   }
 
   function handleCloseImageModal() {
-    setIsWarehouseModalOpen(false)
+    setIsWarehouseImageModalOpen(false)
   }
 
   function handleEditWarehouse(warehouse: Warehouse) {
@@ -45,7 +45,7 @@ const WarehousesPage = () => {
 
   function handleEditImage(warehouseId: string) {
     setEditingImage(warehouseId);
-    setIsWarehouseModalOpen(true)
+    setIsWarehouseImageModalOpen(true)
   }
 
   async function handleConfirmDeleteWarehouse() {
@@ -120,7 +120,7 @@ const WarehousesPage = () => {
         <WarehousesList onEditImage={handleEditImage} onEditWarehouse={handleEditWarehouse} onDelete={handleDeleteWarehouse} />
       </div>
       <WarehouseModal isOpen={isModalOpen} onClose={handleCloseModal} warehouse={editingWarehouse} key={editingWarehouse?.id ?? "new"} />
-      <WarehouseImageModal isOpen={isWarehouseModalOpen} onClose={handleCloseImageModal} warehouseId={editingImage} />
+      <WarehouseImageModal isOpen={isWarehouseImageModal} onClose={handleCloseImageModal} warehouseId={editingImage} />
       <WarehouseDeleteModal isOpen={isDeletingModalOpen} warehouse={deletingWarehouse} onConfirm={handleConfirmDeleteWarehouse} onCancel={handleCancelDelete} isDeleting={isLoading} />
     </main>
   )

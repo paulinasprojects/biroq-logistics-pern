@@ -19,6 +19,7 @@ export interface Company {
   userId: string;
   name: string;
   address: string;
+  image?: string;
   businessType: string;
   averageMonthlyShipments: number;
   shippingOrigin: string;
@@ -44,4 +45,8 @@ export interface Warehouse {
 
 export interface WarehouseImage {
   image: string;
+}
+
+export interface CompanyImage {
+   image: string;
 }

@@ -1,5 +1,5 @@
 import api from "./api";
-import { ApiResponse, Company } from "@/types/types";
+import { ApiResponse, Company, CompanyImage } from "@/types/types";
 
 export const createCompany = async (data: {
   name: string;
@@ -30,5 +30,16 @@ export const updateCompany = async (id: string, data: {
 
 export const deleteCompany = async (id: string) => {
   const response = await api.delete<ApiResponse<Company>>(`/company/${id}`);
+  return response.data;
+}
+
+export const uploadCompanyImage = async (file: File, id: string) => {
+  const formData = new FormData();
+  formData.append("image", file);
+
+  const response = await api.post<ApiResponse<CompanyImage>>(
+    `/company/${id}/image`, 
+    formData
+  );
   return response.data;
 }

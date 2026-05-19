@@ -18,6 +18,7 @@ InferCreationAttributes<Company>> {
   declare userId: ForeignKey<User["id"]>;
   declare name: string;
   declare address: CreationOptional<string | null>;
+  declare image: CreationOptional<string | null>;
   declare businessType: BusinessType
   declare averageMonthlyShipments: number;
   declare shippingOrigin: ShippingOrigin;
@@ -48,6 +49,16 @@ Company.init({
     type: DataTypes.STRING(255),
     allowNull: true,
     defaultValue: null,
+  },
+  image: {
+    type: DataTypes.STRING(1000),
+    allowNull: true,
+    defaultValue: null,
+    validate: {
+      isUrl: {
+        msg: "Image must be a valid url"
+      }
+    }
   },
   businessType: {
     type: DataTypes.ENUM(...Object.values(BusinessType)),

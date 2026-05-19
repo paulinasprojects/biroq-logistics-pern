@@ -6,6 +6,7 @@ import { Company } from "@/types/types";
 import CompanyCard from "@/components/company/company-card";
 import DeletingCompanyModal from "@/components/company/deleting-company-modal";
 import { toast } from "sonner";
+import CompanyImageModal from "@/components/company/company-image-modal";
 
 const CompanyPage = () => {
   const { isLoading, error, getCompany, company, deleteCompany } = useCompanyStore();
@@ -13,6 +14,8 @@ const CompanyPage = () => {
   const [editingCompany, setEditingCompany] = useState<Company | undefined>(undefined);
   const [deletingCompany, setDeletingCompany] = useState<Company | undefined>(undefined);
   const [isDeletingModalOpen, setIsDeletingModalOpen] = useState<boolean>(false);
+  const [editingCompanyImage, setEditingCompanyImage] = useState<string | undefined>(undefined);
+  const [isCompanyImageModal, setIsCompanyImageModal] = useState<boolean>(false);
 
   useEffect(() => {
     getCompany();
@@ -57,6 +60,15 @@ const CompanyPage = () => {
     }
   }
 
+  function handleEditImage(companyId: string) {
+    setEditingCompanyImage(companyId);
+    setIsCompanyImageModal(true);
+  }
+
+  function handleCloseImageModal() {
+    setIsCompanyImageModal(false);
+  }
+
   if (isLoading) {
     return (
       <main className="flex items-center justify-center min-h-[60vh]">
@@ -93,11 +105,20 @@ const CompanyPage = () => {
     )
   }
   return (
-    <div>
+    <main className="px-4 py-4">
+      <div className="pb-4 mb-4">
+        <h1 className="text-3xl font-bold text-black">Company</h1>
+        <p className="text-gray-400 mt-1">Manage your company</p>
+      </div>
       <div>
-        <CompanyCard onEdit={handleEdit} company={company} onDelete={handleDelete} />
+        <CompanyCard onEdit={handleEdit} company={company} onDelete={handleDelete} onEditImage={handleEditImage} />
       </div>
       <CompanyModal isOpen={isModalOpen} onClose={handleCloseModal} company={editingCompany} />
+      <CompanyImageModal
+        isOpen={isCompanyImageModal}
+        onClose={handleCloseImageModal}
+        companyId={editingCompanyImage}
+      />
       <DeletingCompanyModal
         isOpen={isDeletingModalOpen}
         company={deletingCompany}
@@ -105,7 +126,7 @@ const CompanyPage = () => {
         isDeleting={isLoading}
         onCancel={handleCancel}
       />
-    </div>
+    </main>
   )
 }
 
