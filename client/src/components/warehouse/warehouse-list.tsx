@@ -6,9 +6,10 @@ import { Warehouse } from "@/types/types";
 interface Props {
   onEditImage: (warehouseId: string) => void;
   onEditWarehouse: (warehouse: Warehouse) => void
+  onDelete: (warehouse: Warehouse) => void
 }
 
-export default function WarehouseList({ onEditImage, onEditWarehouse }: Props) {
+export default function WarehouseList({ onEditImage, onEditWarehouse, onDelete }: Props) {
   const { warehouses } = useWarehouseStore();
 
   return (
@@ -33,6 +34,7 @@ export default function WarehouseList({ onEditImage, onEditWarehouse }: Props) {
                 warehouse={warehouse}
                 key={warehouse.id}
                 onEditWarehouse={onEditWarehouse}
+                onDelete={onDelete}
               />
             ))}
           </div>

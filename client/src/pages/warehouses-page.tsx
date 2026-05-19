@@ -5,13 +5,16 @@ import WarehouseModal from "@/components/warehouse/warehouse-modal";
 import WarehousesList from "@/components/warehouse/warehouse-list";
 import { Warehouse } from "@/types/types";
 import WarehouseImageModal from "@/components/warehouse/warehouse-image-modal";
+import WarehouseDeleteModal from "@/components/warehouse/warehouse-delete-modal";
 
 const WarehousesPage = () => {
-  const { getAllWarehouses, isLoading, warehouses, error } = useWarehouseStore();
+  const { getAllWarehouses, isLoading, warehouses, error, deleteWarehouse } = useWarehouseStore();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [editingWarehouse, setEditingWarehouse] = useState<Warehouse | undefined>(undefined);
+  const [deletingWarehouse, setDeletingWarehouse] = useState<Warehouse | undefined>(undefined);
   const [editingImage, setEditingImage] = useState<string | undefined>(undefined);
   const [isWarehouseModalOpen, setIsWarehouseModalOpen] = useState<boolean>(false);
+  const [isDeletingModalOpen, setIsDelingModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     getAllWarehouses();
@@ -35,10 +38,31 @@ const WarehousesPage = () => {
     setEditingWarehouse(warehouse);
     setIsModalOpen(true);
   }
+  function handleDeleteWarehouse(warehouse: Warehouse) {
+    setDeletingWarehouse(warehouse);
+    setIsDelingModalOpen(true);
+  }
 
   function handleEditImage(warehouseId: string) {
     setEditingImage(warehouseId);
     setIsWarehouseModalOpen(true)
+  }
+
+  async function handleConfirmDeleteWarehouse() {
+    if (!deletingWarehouse) return;
+    await deleteWarehouse(deletingWarehouse.id);
+
+    const { error: deleteError } = useWarehouseStore.getState();
+
+    if (!deleteError) {
+      setIsDelingModalOpen(false);
+      setDeletingWarehouse(undefined)
+    }
+  };
+
+  function handleCancelDelete() {
+    setIsDelingModalOpen(false);
+    setDeletingWarehouse(undefined)
   }
 
 
@@ -93,10 +117,11 @@ const WarehousesPage = () => {
         </button>
       </div>
       <div>
-        <WarehousesList onEditImage={handleEditImage} onEditWarehouse={handleEditWarehouse} />
+        <WarehousesList onEditImage={handleEditImage} onEditWarehouse={handleEditWarehouse} onDelete={handleDeleteWarehouse} />
       </div>
       <WarehouseModal isOpen={isModalOpen} onClose={handleCloseModal} warehouse={editingWarehouse} key={editingWarehouse?.id ?? "new"} />
       <WarehouseImageModal isOpen={isWarehouseModalOpen} onClose={handleCloseImageModal} warehouseId={editingImage} />
+      <WarehouseDeleteModal isOpen={isDeletingModalOpen} warehouse={deletingWarehouse} onConfirm={handleConfirmDeleteWarehouse} onCancel={handleCancelDelete} isDeleting={isLoading} />
     </main>
   )
 }

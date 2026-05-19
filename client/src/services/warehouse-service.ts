@@ -37,3 +37,8 @@ export const updateWarehouse = async (id: string, data: {
   const response = await api.post<ApiResponse<Warehouse>>(`/warehouses/${id}`, data);
   return response.data;
 }
+
+export const deleteWarehouse = async (id: string) => {
+  const response = await api.delete<ApiResponse<Warehouse>>(`/warehouses/${id}`);
+  return response.data;
+}

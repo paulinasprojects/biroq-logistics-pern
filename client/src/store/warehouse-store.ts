@@ -4,7 +4,8 @@ import {
     uploadImage as uploadImageService, 
     getAllWarehouses as getAllWarehousesService, 
     createWarehouse as createWarehouseService,
-    updateWarehouse as updateWarehouseService
+    updateWarehouse as updateWarehouseService,
+    deleteWarehouse as deleteWarehouseService
   } from '@/services/warehouse-service'
 import { WarehouseState } from '@/types/warehouse-types'
 
@@ -23,6 +24,7 @@ interface WarehouseStore extends WarehouseState {
     capacity: number,
     description: string
   }) => Promise<void>;
+  deleteWarehouse: (id: string) => Promise<void>
   clearError: () => void;
 }
 
@@ -124,6 +126,25 @@ export const useWarehouseStore = create<WarehouseStore>((set) => ({
         isLoading: false
       });
     }
+ },
+ deleteWarehouse: async (id: string) => {
+  set({isLoading: true, error: null});
+
+  try {
+    await deleteWarehouseService(id);
+    set((state) => ({
+      warehouses: state.warehouses.filter((warehouse) => warehouse.id !== id),
+      totalCount: state.totalCount - 1,
+      isLoading: false,
+      error: null
+    }))
+  } catch (error) {
+    const err = error as AxiosError<{error: string}>;
+      set({
+        error: err.response?.data.error,
+        isLoading: false
+      });
+  }
  },
  clearError: () => {
   set({error: null})

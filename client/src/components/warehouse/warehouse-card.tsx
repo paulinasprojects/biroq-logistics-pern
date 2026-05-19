@@ -5,10 +5,11 @@ interface Props {
   warehouse: Warehouse;
   onEditImage: (warehouseId: string) => void;
   onEditWarehouse: (warehouse: Warehouse) => void;
+  onDelete: (warehouse: Warehouse) => void;
 }
 
 
-export default function WarehouseCard({ warehouse, onEditImage, onEditWarehouse }: Props) {
+export default function WarehouseCard({ warehouse, onEditImage, onEditWarehouse, onDelete }: Props) {
   return (
     <div className="text-black bg-white flex flex-col shadow-sm gap-6 rounded-xl border border-gray-300 p-4 transition-all duration-200 hover:shadow-md">
       <div className="flex flex-col gap-6">
@@ -38,7 +39,7 @@ export default function WarehouseCard({ warehouse, onEditImage, onEditWarehouse 
         <button title="Add image" className="p-2 text-gray-500 hover:text-green-400 transition-colors opacity-50" onClick={() => onEditImage(warehouse.id)}>
           <ImageIcon className="size-4" />
         </button>
-        <button title="Delete warehouse" className="p-2 text-gray-500 hover:text-red-400 transition-colors opacity-50">
+        <button title="Delete warehouse" className="p-2 text-gray-500 hover:text-red-400 transition-colors opacity-50" onClick={() => onDelete(warehouse)}>
           <Trash2 className="size-4" />
         </button>
       </div>
