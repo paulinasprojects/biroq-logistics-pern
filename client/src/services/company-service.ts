@@ -43,3 +43,8 @@ export const uploadCompanyImage = async (file: File, id: string) => {
   );
   return response.data;
 }
+
+export const deleteCompanyImage = async (id: string) => {
+  const response = await api.delete<ApiResponse<null>>(`/company/${id}/image`);
+  return response.data;
+}

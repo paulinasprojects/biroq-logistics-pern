@@ -28,6 +28,11 @@ export const uploadImage = async (file: File, id:string) => {
   return response.data;
 };
 
+export const deleteWarehouseImage = async (id: string) => {
+  const response = await api.delete<ApiResponse<null>>(`/warehouses/${id}/image`);
+  return response.data;
+}
+
 export const updateWarehouse = async (id: string, data: {
   name: string,
   address: string,

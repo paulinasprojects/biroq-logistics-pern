@@ -19,7 +19,7 @@ export interface Company {
   userId: string;
   name: string;
   address: string;
-  image?: string;
+  image?: string | null;
   businessType: string;
   averageMonthlyShipments: number;
   shippingOrigin: string;
@@ -34,7 +34,7 @@ export interface Warehouse {
   name: string;
   address: string;
   description: string | null;
-  image?: string;
+  image?: string | null;
   capacity: number;
   currentOccupancy: number;
   createdAt: string;

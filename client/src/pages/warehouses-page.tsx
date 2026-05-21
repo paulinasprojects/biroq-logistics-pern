@@ -6,15 +6,19 @@ import WarehousesList from "@/components/warehouse/warehouse-list";
 import { Warehouse } from "@/types/types";
 import WarehouseImageModal from "@/components/warehouse/warehouse-image-modal";
 import WarehouseDeleteModal from "@/components/warehouse/warehouse-delete-modal";
+import WarehouseImageDeleteModal from "@/components/warehouse/warehouse-image-delete-modal";
+import { toast } from "sonner";
 
 const WarehousesPage = () => {
-  const { getAllWarehouses, isLoading, warehouses, error, deleteWarehouse } = useWarehouseStore();
+  const { getAllWarehouses, isLoading, warehouses, error, deleteWarehouse, deleteWarehouseImage } = useWarehouseStore();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [editingWarehouse, setEditingWarehouse] = useState<Warehouse | undefined>(undefined);
   const [deletingWarehouse, setDeletingWarehouse] = useState<Warehouse | undefined>(undefined);
   const [editingImage, setEditingImage] = useState<string | undefined>(undefined);
+  const [deletingImage, setDeletingImage] = useState<string | null>(null);
   const [isWarehouseImageModal, setIsWarehouseImageModalOpen] = useState<boolean>(false);
-  const [isDeletingModalOpen, setIsDelingModalOpen] = useState<boolean>(false);
+  const [isDeletingWarehouseModalOpen, setIsDeletingWarehouseModalOpen] = useState<boolean>(false);
+  const [isDeletingWarehouseImageModalOpen, setIsDeletingWarehouseImageModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     getAllWarehouses();
@@ -40,7 +44,7 @@ const WarehousesPage = () => {
   }
   function handleDeleteWarehouse(warehouse: Warehouse) {
     setDeletingWarehouse(warehouse);
-    setIsDelingModalOpen(true);
+    setIsDeletingWarehouseModalOpen(true);
   }
 
   function handleEditImage(warehouseId: string) {
@@ -55,13 +59,34 @@ const WarehousesPage = () => {
     const { error: deleteError } = useWarehouseStore.getState();
 
     if (!deleteError) {
-      setIsDelingModalOpen(false);
+      setIsDeletingWarehouseModalOpen(false);
       setDeletingWarehouse(undefined)
     }
   };
 
+  function handleDeleteImage(warehouseId: string) {
+    setDeletingImage(warehouseId);
+    setIsDeletingWarehouseImageModalOpen(true)
+  }
+
+  async function handleDeleteWarehouseImage() {
+    if (!deletingImage) return;
+    await deleteWarehouseImage(deletingImage);
+    const { error: deleteImageError } = useWarehouseStore.getState();
+    if (!deleteImageError) {
+      setIsDeletingWarehouseImageModalOpen(false);
+      setDeletingImage(null);
+      toast.success("Image deleted successfully");
+    }
+  }
+
+  function handleCancelDeleteImage() {
+    setIsDeletingWarehouseImageModalOpen(false);
+    setDeletingImage(null);
+  }
+
   function handleCancelDelete() {
-    setIsDelingModalOpen(false);
+    setIsDeletingWarehouseModalOpen(false);
     setDeletingWarehouse(undefined)
   }
 
@@ -117,11 +142,17 @@ const WarehousesPage = () => {
         </button>
       </div>
       <div>
-        <WarehousesList onEditImage={handleEditImage} onEditWarehouse={handleEditWarehouse} onDelete={handleDeleteWarehouse} />
+        <WarehousesList onEditImage={handleEditImage} onEditWarehouse={handleEditWarehouse} onDelete={handleDeleteWarehouse} onDeleteImage={handleDeleteImage} />
       </div>
       <WarehouseModal isOpen={isModalOpen} onClose={handleCloseModal} warehouse={editingWarehouse} key={editingWarehouse?.id ?? "new"} />
       <WarehouseImageModal isOpen={isWarehouseImageModal} onClose={handleCloseImageModal} warehouseId={editingImage} />
-      <WarehouseDeleteModal isOpen={isDeletingModalOpen} warehouse={deletingWarehouse} onConfirm={handleConfirmDeleteWarehouse} onCancel={handleCancelDelete} isDeleting={isLoading} />
+      <WarehouseDeleteModal isOpen={isDeletingWarehouseModalOpen} warehouse={deletingWarehouse} onConfirm={handleConfirmDeleteWarehouse} onCancel={handleCancelDelete} isDeleting={isLoading} />
+      <WarehouseImageDeleteModal
+        isOpen={isDeletingWarehouseImageModalOpen}
+        onConfirm={handleDeleteWarehouseImage}
+        onCancel={handleCancelDeleteImage}
+        isDeleting={isLoading}
+      />
     </main>
   )
 }

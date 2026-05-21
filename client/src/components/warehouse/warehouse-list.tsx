@@ -7,9 +7,10 @@ interface Props {
   onEditImage: (warehouseId: string) => void;
   onEditWarehouse: (warehouse: Warehouse) => void
   onDelete: (warehouse: Warehouse) => void
+  onDeleteImage: (warehouseId: string) => void;
 }
 
-export default function WarehouseList({ onEditImage, onEditWarehouse, onDelete }: Props) {
+export default function WarehouseList({ onEditImage, onEditWarehouse, onDelete, onDeleteImage }: Props) {
   const { warehouses } = useWarehouseStore();
 
   return (
@@ -35,6 +36,7 @@ export default function WarehouseList({ onEditImage, onEditWarehouse, onDelete }
                 key={warehouse.id}
                 onEditWarehouse={onEditWarehouse}
                 onDelete={onDelete}
+                onDeleteImage={onDeleteImage}
               />
             ))}
           </div>

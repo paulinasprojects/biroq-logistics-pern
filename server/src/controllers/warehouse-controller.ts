@@ -75,7 +75,44 @@ export const createWarehouseImage = asyncHandler(
 
     sendSuccess(res, { image: warehouse.image }, "Image updated successfully")
 
-})
+});
+
+export const deleteWarehouseImage = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    const userId = req.userId;
+    const company = await Company.findOne({
+      where: {
+        userId: userId
+      }
+    });
+
+    if (!company) {
+      throw new AppError("No company found", 404)
+    }
+
+    const warehouse = await Warehouse.findOne({
+      where: {
+        id,
+        companyId: company.id
+      }
+    });
+
+    if (!warehouse) {
+      throw new AppError("Warehouse not found", 404)
+    };
+
+    if (!warehouse.image) {
+      throw new AppError("Warehouse has not image to delete", 404);
+    }
+
+    await deleteCloudinaryImage(warehouse.image);
+    warehouse.image = null;
+    await warehouse.save();
+
+    sendSuccess(res, null,"Image deleted successfully")
+  }
+)
 
 export const getWarehouseById = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {

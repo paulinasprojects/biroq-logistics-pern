@@ -72,6 +72,45 @@ export const createCompanyImage = asyncHandler (
  }
 )
 
+export const deleteCompanyImage = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+    const userId = req.userId;
+
+    const user = await User.findOne({
+      where: {
+        id: userId
+      }
+    });
+
+    if (!user) {
+      throw new AppError("No user found", 404);
+    }
+
+    const company = await Company.findOne({
+      where: {
+        id: id,
+        userId: userId,
+      }
+    });
+
+    if (!company) {
+      throw new AppError("Company not found", 404);
+    }
+
+    if (!company.image) {
+      throw new AppError("Company has not image to delete", 404);
+    }
+
+    await deleteCloudinaryImage(company.image);
+    company.image = null;
+    await company.save();
+
+    sendSuccess(res, null, "Image deleted successfully")
+
+  }
+)
+
 export const getCompanyByUserId = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
      const userId = req.userId;

@@ -5,16 +5,22 @@ interface Props {
   company: Company
   onDelete: (company: Company) => void
   onEditImage: (companyId: string) => void;
+  onDeleteImage: (companyId: string) => void;
 }
 
-const CompanyCard = ({ onEdit, onDelete, company, onEditImage }: Props) => {
+const CompanyCard = ({ onEdit, onDelete, company, onEditImage, onDeleteImage }: Props) => {
   return (
-    <div className="text-black bg-white flex flex-col border border-gray-100 py-12 gap-6 rounded-xl xl:px-12 transition-all duration-200">
-      <div className="flex xl:flex-row flex-col  justify-between gap-6">
+    <div className="flex flex-col px-12 py-4">
+      <div className="flex lg:flex-row flex-col justify-between items-center gap-6">
         <div className="flex items-center justify-center">
           {company.image ? (
-            <div>
+            <div className="relative">
               <img src={company.image} alt="" className="rounded-md w-[350px] object-cover" />
+              <div className="absolute top-2 left-0">
+                <button title="Delete image" className="bg-red-500 text-white p-2 rounded-full" onClick={() => onDeleteImage(company.id)}>
+                  <Trash2 className="size-2" />
+                </button>
+              </div>
             </div>
           ) : (
             <div className="flex items-center justify-center">

@@ -7,15 +7,18 @@ import CompanyCard from "@/components/company/company-card";
 import DeletingCompanyModal from "@/components/company/deleting-company-modal";
 import { toast } from "sonner";
 import CompanyImageModal from "@/components/company/company-image-modal";
+import CompanyImageDeleteModal from "@/components/company/company-image-delete-modal";
 
 const CompanyPage = () => {
-  const { isLoading, error, getCompany, company, deleteCompany } = useCompanyStore();
+  const { isLoading, error, getCompany, company, deleteCompany, deleteCompanyImage } = useCompanyStore();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [editingCompany, setEditingCompany] = useState<Company | undefined>(undefined);
   const [deletingCompany, setDeletingCompany] = useState<Company | undefined>(undefined);
-  const [isDeletingModalOpen, setIsDeletingModalOpen] = useState<boolean>(false);
+  const [isDeletingCompanyModalOpen, setIsDeletingCompanyModalOpen] = useState<boolean>(false);
   const [editingCompanyImage, setEditingCompanyImage] = useState<string | undefined>(undefined);
-  const [isCompanyImageModal, setIsCompanyImageModal] = useState<boolean>(false);
+  const [isCompanyImageModalOpen, setIsCompanyImageModalOpen] = useState<boolean>(false);
+  const [deletingImage, setDeletingImage] = useState<string | null>(null);
+  const [isDeletingCompanyImageModalOpen, setIsDeletingCompanyImageModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     getCompany();
@@ -29,11 +32,11 @@ const CompanyPage = () => {
 
   function handleDelete(company: Company) {
     setDeletingCompany(company);
-    setIsDeletingModalOpen(true)
+    setIsDeletingCompanyModalOpen(true)
   }
 
   function handleCancel() {
-    setIsDeletingModalOpen(false)
+    setIsDeletingCompanyModalOpen(false)
     setDeletingCompany(undefined);
   }
 
@@ -55,19 +58,41 @@ const CompanyPage = () => {
 
     if (!deleteError) {
       toast.success("Company deleted successfully")
-      setIsDeletingModalOpen(false)
+      setIsDeletingCompanyModalOpen(false)
       setDeletingCompany(undefined);
     }
   }
 
   function handleEditImage(companyId: string) {
     setEditingCompanyImage(companyId);
-    setIsCompanyImageModal(true);
+    setIsCompanyImageModalOpen(true);
   }
 
   function handleCloseImageModal() {
-    setIsCompanyImageModal(false);
+    setIsCompanyImageModalOpen(false);
   }
+
+  function handleDeleteImage(companyId: string) {
+    setDeletingImage(companyId);
+    setIsDeletingCompanyImageModalOpen(true)
+  }
+
+  async function handleDeleteCompanyImage() {
+    if (!deletingImage) return;
+    await deleteCompanyImage(deletingImage);
+    const { error: deleteImageError } = useCompanyStore.getState();
+    if (!deleteImageError) {
+      setIsDeletingCompanyImageModalOpen(false);
+      setDeletingImage(null)
+      toast.success("Image deleted successfully");
+    }
+  }
+
+  function handleCancelDeleteImage() {
+    setIsDeletingCompanyImageModalOpen(false);
+    setDeletingImage(null)
+  }
+
 
   if (isLoading) {
     return (
@@ -111,20 +136,26 @@ const CompanyPage = () => {
         <p className="text-gray-400 mt-1">Manage your company</p>
       </div>
       <div>
-        <CompanyCard onEdit={handleEdit} company={company} onDelete={handleDelete} onEditImage={handleEditImage} />
+        <CompanyCard onEdit={handleEdit} company={company} onDelete={handleDelete} onEditImage={handleEditImage} onDeleteImage={handleDeleteImage} />
       </div>
       <CompanyModal isOpen={isModalOpen} onClose={handleCloseModal} company={editingCompany} />
       <CompanyImageModal
-        isOpen={isCompanyImageModal}
+        isOpen={isCompanyImageModalOpen}
         onClose={handleCloseImageModal}
         companyId={editingCompanyImage}
       />
       <DeletingCompanyModal
-        isOpen={isDeletingModalOpen}
+        isOpen={isDeletingCompanyModalOpen}
         company={deletingCompany}
         onConfirm={handleDeleteConfirm}
         isDeleting={isLoading}
         onCancel={handleCancel}
+      />
+      <CompanyImageDeleteModal
+        isOpen={isDeletingCompanyImageModalOpen}
+        onConfirm={handleDeleteCompanyImage}
+        onCancel={handleCancelDeleteImage}
+        isDeleting={isLoading}
       />
     </main>
   )

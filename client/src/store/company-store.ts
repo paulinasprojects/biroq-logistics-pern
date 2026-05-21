@@ -5,7 +5,8 @@ import {
     deleteCompany as deleteCompanyService, 
     getCompany as getCompanyService, 
     updateCompany as updateCompanyService,
-    uploadCompanyImage as uploadCompanyImageService
+    uploadCompanyImage as uploadCompanyImageService,
+    deleteCompanyImage as deleteCompanyImageService
   } 
     from "@/services/company-service";
 import { CompanyState } from "@/types/company-types";
@@ -19,6 +20,7 @@ interface CompanyStore extends CompanyState {
     businessType: string;
   }) => Promise<void>;
   uploadCompanyImage: (file: File, id: string) => Promise<void>;
+  deleteCompanyImage: (id: string) => Promise<void>;
   getCompany: () => Promise<void>;
   updateCompany: (id: string, data: {
     name: string;
@@ -73,6 +75,23 @@ export const useCompanyStore = create<CompanyStore>((set) => ({
       }
     } catch (error) {
        const err = error as AxiosError<{error: string}>;
+      set({
+        error: err.response?.data?.error,
+        isLoading: false,
+      })
+    }
+  },
+  deleteCompanyImage: async (id: string) => {
+    set({ isLoading: true, error: null })
+    try {
+      await deleteCompanyImageService(id);
+      set((state) => ({
+        company: state.company ? {...state.company, image: null} : null,
+        isLoading: false,
+        error: null,
+      }))
+    } catch (error) {
+      const err = error as AxiosError<{error: string}>;
       set({
         error: err.response?.data?.error,
         isLoading: false,
