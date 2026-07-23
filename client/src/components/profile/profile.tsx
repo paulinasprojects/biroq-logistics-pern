@@ -2,17 +2,20 @@ import { useNavigate } from "react-router-dom";
 import { User } from "@/types/types";
 import { formatDate } from "@/utils/format-date";
 import { SmallLogo } from "../common/small-logo";
+import EditImage from "./edit-image";
 
 interface ProfileProps {
   user: User
-  onEdit: () => void
+  onEdit: () => void;
 }
 
 export default function Profile({ user, onEdit }: ProfileProps) {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col gap-6 border border-[#e8e8e8] rounded-xl p-10">
+    <div className="grid lg:grid-cols-2 max-sm:grid-cols-1 gap-10">
+      <EditImage user={user}/>
+    <div className="flex flex-col gap-6 justify-between border border-[#e8e8e8] rounded-xl p-10">
       <div>
         <SmallLogo />
       </div>
@@ -50,6 +53,7 @@ export default function Profile({ user, onEdit }: ProfileProps) {
           Go Back
         </button>
       </div>
+    </div>
     </div>
   )
 } 

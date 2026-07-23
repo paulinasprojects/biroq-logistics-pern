@@ -2,13 +2,22 @@ import {create} from "zustand";
 import { AxiosError } from "axios";
 import { TOKEN_KEY } from "@/services/api";
 import { AuthState } from "@/types/auth-types";
-import { signup as signupService, login as loginService, getProfile as getProfileService, updateProfile as updateProfileService } from "@/services/auth-service";
+import { 
+    signup as signupService, 
+    login as loginService, 
+    getProfile as getProfileService, 
+    updateProfile as updateProfileService,
+    uploadUserImage as uploadUserImageService,
+    deleteUserImage as deleteUserImageService,
+  } from "@/services/auth-service";
 
 interface AuthStore extends AuthState {
   signup: (email: string, password: string, firstName: string, lastName: string) => Promise<boolean>;
   login: (email: string, password: string) => Promise<void>;
   getProfile: () => Promise<void>;
   updateProfile: (data: {firstName?: string, lastName?: string, email?: string, password?: string}) => Promise<void>;
+  uploadUserImage: (file: File) => Promise<void>;
+  deleteUserImage: () => Promise<void>;
   logout: () => void;
 };
 
@@ -117,6 +126,51 @@ export const useAuthStore = create<AuthStore>((set) => ({
         error: err.response?.data?.error,
         isLoading: false,
         isAuthenticated: false
+      });
+    }
+  },
+  uploadUserImage: async (file: File) => {
+    set({
+      isLoading: true,
+      error: null,
+    });
+
+    try {
+      const response = await uploadUserImageService(file);
+      if (response.data) {
+        const { image } = response.data;
+        set((state) => ({
+          user: state.user ? {...state.user, image} : null,
+          isLoading: false,
+          error: null,
+        }))
+      }
+    } catch (error) {
+      const err = error as AxiosError<{error: string}>;
+      set({
+        error: err.response?.data?.error,
+        isLoading: false,
+      });
+    }
+  },
+  deleteUserImage: async () => {
+    set({
+      isLoading: true,
+      error: null
+    });
+
+    try {
+       await deleteUserImageService();
+       set((state) => ({
+        user: state.user ? {...state.user, image: null} : null,
+        isLoading: false,
+        error: null,
+       })) 
+    } catch (error) {
+      const err = error as AxiosError<{error: string}>;
+      set({
+        error: err.response?.data?.error,
+        isLoading: false,
       });
     }
   },

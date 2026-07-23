@@ -17,7 +17,7 @@ const CompanyCard = ({ onEdit, onDelete, company, onEditImage, onDeleteImage }: 
             <div className="relative">
               <img src={company.image} alt="" className="rounded-md w-[350px] object-cover" />
               <div className="absolute top-2 left-0">
-                <button title="Delete image" className="bg-red-500 text-white p-2 rounded-full" onClick={() => onDeleteImage(company.id)}>
+                <button title="Delete image" className="bg-red-500 text-white p-2 rounded-full hover:bg-red-400 duration-300 transition-colors" onClick={() => onDeleteImage(company.id)}>
                   <Trash2 className="size-2" />
                 </button>
               </div>
@@ -37,13 +37,13 @@ const CompanyCard = ({ onEdit, onDelete, company, onEditImage, onDeleteImage }: 
             <span className="capitalize">Shipping origin: {company.shippingOrigin}</span>
           </div>
           <div className="flex items-center justify-center gap-2">
-            <button className="p-4 rounded-full bg-blue-400 text-white" title="Edit company" onClick={() => onEdit(company)}>
+            <button className="p-4 rounded-full bg-blue-500 text-white hover:bg-blue-400  duration-300 transition-colors" title="Edit company" onClick={() => onEdit(company)}>
               <Pencil className="size-4" />
             </button>
             <button title="Add image" className="p-4 rounded-full text-gray-500 hover:text-green-400 transition-colors opacity-50" onClick={() => onEditImage(company.id)}>
               <ImageIcon className="size-4" />
             </button>
-            <button className="p-4 rounded-full bg-red-500 text-white" title="Delete company" onClick={() => onDelete(company)}>
+            <button className="p-4 rounded-full bg-red-500 text-white hover:bg-red-400 duration-300 transition-colors" title="Delete company" onClick={() => onDelete(company)}>
               <Trash2 className="size-4" />
             </button>
           </div>

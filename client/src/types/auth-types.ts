@@ -31,3 +31,7 @@ export interface UpdateProfileRequest {
   email?: string;
   password?: string;
 }
+
+export interface UserImage {
+  image: string;
+}

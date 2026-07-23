@@ -19,7 +19,7 @@ export default function WarehouseCard({ warehouse, onEditImage, onEditWarehouse,
             <div className="relative">
               <img src={warehouse.image} alt="" className="rounded-md object-cover" />
               <div className="absolute top-2 right-2">
-                <button className="bg-red-500 text-white p-2 rounded-full hover:bg-red-600 duration-300 transition" onClick={() => onDeleteImage(warehouse.id)}>
+                <button className="bg-red-500 text-white p-2 rounded-full hover:bg-red-400 duration-300 transition-colors" onClick={() => onDeleteImage(warehouse.id)}>
                   <Trash2 className="size-2" />
                 </button>
               </div>

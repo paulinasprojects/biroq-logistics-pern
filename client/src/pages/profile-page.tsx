@@ -20,6 +20,7 @@ const ProfilePage = () => {
   function handleCancel() {
     setMode("view")
   }
+  
 
   return (
     <main className="bg-white px-4 py-8 sm:px-8 sm:py-12">

@@ -9,6 +9,7 @@ InferCreationAttributes<User>> {
   declare password: string;
   declare firstName: CreationOptional<string | null>;
   declare lastName: CreationOptional<string | null>;
+  declare image: CreationOptional<string | null>;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
   
@@ -63,6 +64,16 @@ User.init({
     type: DataTypes.STRING(100),
     allowNull: true,
     defaultValue: null,
+  },
+  image: {
+    type: DataTypes.STRING(1000),
+    allowNull: true,
+    defaultValue: null,
+    validate: {
+      isUrl: {
+        msg: "Image must be a valid url"
+      }
+    }
   },
   createdAt: DataTypes.DATE,
   updatedAt: DataTypes.DATE,
