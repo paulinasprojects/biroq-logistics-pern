@@ -1,20 +1,14 @@
-import { useAuthStore } from "@/store/auth-store"
-import { useNavigate } from "react-router-dom";
+import DashboardBanner from "@/components/dashboard/dashboard-banner"
 
 const DashboardPage = () => {
-  const { logout } = useAuthStore();
-  const navigate = useNavigate();
-
-  function handleLogout() {
-    logout();
-    navigate("/login")
-  }
-
   return (
     <div className="w-full h-screen">
-      <button onClick={handleLogout}>
-        Logout
-      </button>
+      <div className="p-6">
+        <div className="flex flex-col gap-6">
+          <h1 className="text-2xl font-semibold">Dashboard</h1>
+          <DashboardBanner/>
+        </div>
+      </div>
     </div>
   )
 }
