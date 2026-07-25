@@ -2,6 +2,7 @@ import sequelize from "../config/db";
 import User from "./User";
 import Company from "./Company";
 import Warehouse from "./Warehouse";
+import Shipment from "./Shipment";
 
 User.hasOne(Company, {
   foreignKey: "userId",
@@ -25,7 +26,19 @@ Warehouse.belongsTo(Company, {
   as: "company"
 });
 
-export { User, Company, Warehouse };
+Warehouse.hasMany(Shipment, {
+  foreignKey: "warehouseId",
+  as: "shipments",
+  onDelete: "CASCADE"
+})
+
+Shipment.belongsTo(Warehouse, {
+  foreignKey: "warehouseId",
+  as: "warehouses"
+});
+
+
+export { User, Company, Warehouse, Shipment };
 
 export const syncModels = async (): Promise<void> => {
   const isDev = process.env.NODE_ENV === "development";

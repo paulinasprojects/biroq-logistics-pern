@@ -71,7 +71,7 @@ Company.init({
     }
   },
   averageMonthlyShipments: {
-    type: DataTypes.INTEGER(),
+    type: DataTypes.INTEGER,
     allowNull: false,
     defaultValue: 0,
     validate: {

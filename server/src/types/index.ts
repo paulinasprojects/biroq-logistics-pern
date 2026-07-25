@@ -16,3 +16,15 @@ export enum ShippingOrigin {
   
 }
 
+
+export enum PackageType {
+  BOX = "box",
+  CUSTOMPACKAGE = "custompackage",
+}
+
+export enum ServiceType {
+  STANDARD = "standard",
+  EXPRESS = "express",
+  SAME_DAY = "same_day",
+  OVERNIGHT = "overnight",
+}

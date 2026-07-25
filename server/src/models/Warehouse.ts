@@ -9,6 +9,7 @@ import {
 } from 'sequelize';
 import sequelize from '../config/db';
 import { Company } from './Company';
+import Shippment from './Shipment';
 
 export class Warehouse extends Model<
 InferAttributes<Warehouse>, InferCreationAttributes<Warehouse>> {
@@ -23,6 +24,7 @@ InferAttributes<Warehouse>, InferCreationAttributes<Warehouse>> {
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
   declare company?: NonAttribute<Company>;
+  declare shipments?: NonAttribute<Shippment[]>;
 }
 
 Warehouse.init({
