@@ -8,6 +8,7 @@ import userRoutes from "./routes/user-routes";
 import profileRoutes from "./routes/profile-routes";
 import companyRoutes from "./routes/company-routes";
 import warehouseRoutes from "./routes/warehouse-routes";
+import shipmentsRoutes from "./routes/shipment-routes";
 
 dotenv.config();
 
@@ -31,6 +32,7 @@ app.use("/api/auth", userRoutes);
 app.use("/api/profile", profileRoutes);
 app.use("/api/company", companyRoutes);
 app.use("/api/warehouses", warehouseRoutes);
+app.use("/api/shipments", shipmentsRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
