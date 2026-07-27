@@ -7,12 +7,12 @@ import { Op } from "sequelize";
 export const shipmentsIncludes = [
   {
     model: Warehouse,
-    as: "warehouse",
+    as: "warehouses",
     attributes: ["id", "name"]
   }
 ]
 
-const getOwnedshipment = async (userId: string, shipmentId: string | string[]) => {
+const getOwnedShipment = async (userId: string, shipmentId: string | string[]) => {
   const company = await Company.findOne({
     where: {
       userId
@@ -62,7 +62,7 @@ export const getAllShipments = asyncHandler(
      });
 
      if (!company) {
-      throw new AppError("No company found", 404);
+      throw new AppError("Company not found", 404);
      }
 
     const warehouses = await Warehouse.findAll({
@@ -73,7 +73,7 @@ export const getAllShipments = asyncHandler(
     });
 
     if (warehouses.length === 0) {
-      throw new AppError("No warehouses found", 404)
+      throw new AppError("Warehouses not found", 404)
     }
 
     const warehouseIds = warehouses.map((w) => w.id); 
@@ -95,7 +95,7 @@ export const getShipmentById = asyncHandler(
     const { id } = req.params;
     const userId = req.userId;
 
-    const {shipment} = await getOwnedshipment(userId, id);
+    const {shipment} = await getOwnedShipment(userId, id);
 
     sendSuccess(res, shipment, "Shipment retrieved successfully")
 
@@ -245,7 +245,7 @@ export const updateShipmentById = asyncHandler(
       hasSaturdayDelivery
     } = req.body;
 
-    const {shipment} = await getOwnedshipment(userId, id);
+    const {shipment} = await getOwnedShipment(userId, id);
 
     if (shipmentName !== undefined) {
       shipment.shipmentName = shipmentName
@@ -355,9 +355,9 @@ export const updateShipmentById = asyncHandler(
       shipment.hasSaturdayDelivery
     }
 
-    const updatedshipment = await shipment.save();
+    const updatedShipment = await shipment.save();
 
-    sendSuccess(res, updatedshipment, "Shipment updated successfully");
+    sendSuccess(res, updatedShipment, "Shipment updated successfully");
 
   }
 )
@@ -367,7 +367,7 @@ export const deleteShipmentById = asyncHandler(
     const { id } = req.params;
     const userId = req.userId;
 
-    const { shipment } = await getOwnedshipment(userId, id);
+    const { shipment } = await getOwnedShipment(userId, id);
 
     await shipment.destroy();
 

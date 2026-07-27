@@ -12,6 +12,7 @@ import HomeLayout from './components/layouts/home-layout';
 import DashboardLayout from './components/layouts/dashboard-layout';
 import CompanyPage from './pages/company-page';
 import WarehousesPage from './pages/warehouses-page';
+import ShipmentPage from './pages/shipment-page';
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
         <Route path="/dashboard" element={<DashboardLayout><DashboardPage /></DashboardLayout>} />
         <Route path="/company" element={<DashboardLayout><CompanyPage /></DashboardLayout>} />
         <Route path="/warehouses" element={<DashboardLayout><WarehousesPage /></DashboardLayout>} />
+        <Route path="/shipments" element={<DashboardLayout><ShipmentPage /></DashboardLayout>} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

@@ -147,7 +147,7 @@ Shipment.init({
     validate: {
       isIn: {
         args :[Object.values(PackageType)],
-        msg: `Package types has to be one of ${Object.values(PackageType).join(" ")}`
+        msg: `Package types has to be one of ${Object.values(PackageType).join(", ")}`
       }
     }
   },
@@ -224,6 +224,11 @@ Shipment.init({
 serviceName: {
   type: DataTypes.STRING(255),
   allowNull: false,
+  validate: {
+    notEmpty: {
+      msg: "Service name cannot be empty"
+    }
+  }  
 },
 servicePrice: {
   type: DataTypes.INTEGER,
@@ -236,10 +241,20 @@ servicePrice: {
 chargeableWeight: {
   type: DataTypes.STRING(255),
   allowNull: false,
+  validate: {
+    notEmpty: {
+      msg: "Chargeable weight cannot be empty"
+    }
+  }
 },
 deliveryTimeFrame: {
   type: DataTypes.STRING(255),
   allowNull: false,
+  validate: {
+    notEmpty: {
+      msg: "Chargeable weight cannot be empty"
+    }
+  }
 },
 hasPickUpToday: {
   type: DataTypes.BOOLEAN,

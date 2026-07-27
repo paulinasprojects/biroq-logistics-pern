@@ -41,6 +41,7 @@ export interface Warehouse {
   createdAt: string;
   updatedAt: string;
   company?: Company;
+  shipments?: Shipment[];
 }
 
 
@@ -50,4 +51,51 @@ export interface WarehouseImage {
 
 export interface CompanyImage {
    image: string;
+}
+
+export enum PackageType {
+  BOX = "box",
+  CUSTOMPACKAGE = "custompackage",
+}
+
+export enum ServiceType {
+  STANDARD = "standard",
+  EXPRESS = "express",
+  SAME_DAY = "same_day",
+  OVERNIGHT = "overnight",
+}
+
+export interface Shipment {
+  id: string;
+  warehouseId: string;
+  shipmentName: string;
+  senderName: string;
+  senderPhoneNumber: string;
+  pickupAddress: string;
+  receiverName: string;
+  receiverPhoneNumber: string;
+  receiverNotes: string | null;
+  deliveryAddress: string;
+  packageType: PackageType;
+  packageDescription: string;
+  packageWeight: number;
+  packageLength: number;
+  packageWidth: number;
+  packageHeight: number;
+  packageNotes: string | null;
+  declaredValue: number;
+  hasInsurance: boolean;
+  hasCashOnDelivery: boolean;
+  hasDangerousGoods: boolean;
+  specialHandling: string | null;
+  serviceType: ServiceType;
+  serviceName: string;
+  servicePrice: number;
+  chargeableWeight: string;
+  deliveryTimeFrame: string;
+  hasPickUpToday: boolean;
+  hasSaturdayDelivery: boolean;
+  createdAt: string;
+  updatedAt: string;
+  warehouse?: Warehouse;
 }
