@@ -7,6 +7,7 @@ export const getAllShipments = async () => {
 }
 
 export const createShipment = async (data: {
+  warehouseId: string;
   shipmentName: string;
   senderName: string;
   senderPhoneNumber: string;

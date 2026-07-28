@@ -71,6 +71,7 @@ export const useShipmentStore = create<ShipmentStore>((set) => ({
     }
   },
   createShipment: async (data: {
+    warehouseId: string;
     shipmentName: string;
     senderName: string;
     senderPhoneNumber: string;
