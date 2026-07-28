@@ -34,7 +34,7 @@ Warehouse.hasMany(Shipment, {
 
 Shipment.belongsTo(Warehouse, {
   foreignKey: "warehouseId",
-  as: "warehouses"
+  as: "warehouse"
 });
 
 

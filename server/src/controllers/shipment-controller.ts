@@ -7,7 +7,7 @@ import { Op } from "sequelize";
 export const shipmentsIncludes = [
   {
     model: Warehouse,
-    as: "warehouses",
+    as: "warehouse",
     attributes: ["id", "name"]
   }
 ]

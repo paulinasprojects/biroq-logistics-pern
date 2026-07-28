@@ -29,7 +29,6 @@ export default function CheckboxField({
           onChange={(e) => onChange(e.target.checked)}
           className="peer appearance-none w-4 h-4 border border-slate-700 rounded-sm bg-white checked:bg-amber-600 checked:border-amber-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer"
         />
-        {/* Custom checkmark */}
         <svg
           className="absolute size-3 text-white opacity-0 peer-checked:opacity-100 pointer-events-none transition-opacity"
           viewBox="0 0 12 12"
