@@ -11,4 +11,8 @@ body {
     @apply cursor-pointer;
   }
 
+  .input-class {
+   @apply px-4 py-1 border border-slate-700 rounded-full text-black placeholder:text-[14px] placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:outline-none focus:border-slate-300 transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
 }

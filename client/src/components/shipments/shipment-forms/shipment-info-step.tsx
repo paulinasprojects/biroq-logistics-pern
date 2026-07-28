@@ -22,8 +22,9 @@ const ShipmentInfoStep = ({state, dispatch, onNext}: Props) => {
             <div className="flex flex-col gap-y-2">
           <label htmlFor="shipment-name" className="text-sm font-bold">Shipment Name</label>
           <input 
+            id="shipment-name"
             type="text"
-            className="px-4 py-1 border border-slate-700 rounded-full text-black placeholder:text-[14px] placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:outline-none focus:border-slate-300 transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+            className="input-class"
             placeholder="Shipment 0001"
             value={state.shipmentName}
             onChange={(e) => dispatch({type:"UPDATE_SHIPMENT_INFO", payload: {shipmentName: e.target.value}})}
@@ -32,8 +33,9 @@ const ShipmentInfoStep = ({state, dispatch, onNext}: Props) => {
         <div className="flex flex-col gap-y-2">
           <label htmlFor="sender-name" className="text-sm font-bold">Sender Name</label>
           <input 
+            id="sender-name"
             type="text"
-            className="px-4 py-1 border border-slate-700 rounded-full text-black placeholder:text-[14px] placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:outline-none focus:border-slate-300 transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+            className="input-class"
             placeholder="John Doe"
             value={state.senderName}
             onChange={(e) => dispatch({type:"UPDATE_SHIPMENT_INFO", payload: {senderName: e.target.value}})}
@@ -42,8 +44,9 @@ const ShipmentInfoStep = ({state, dispatch, onNext}: Props) => {
         <div className="flex flex-col gap-y-2">
            <label htmlFor="sender-phone-number" className="text-sm font-bold">Sender Phone Number</label>
           <input 
+            id="sender-phone-number"
             type="text"
-            className="px-4 py-1 border border-slate-700 rounded-full text-black placeholder:text-[14px] placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:outline-none focus:border-slate-300 transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+            className="input-class"
             placeholder="+1234590"
             value={state.senderPhoneNumber}
             onChange={(e) => dispatch({type:"UPDATE_SHIPMENT_INFO", payload: {senderPhoneNumber: e.target.value}})}
@@ -52,8 +55,9 @@ const ShipmentInfoStep = ({state, dispatch, onNext}: Props) => {
         <div className="flex flex-col gap-y-2">
            <label htmlFor="pick-up-address" className="text-sm font-bold">Pickup Address</label>
           <input 
+            id="pick-up-address"
             type="text"
-            className="px-4 py-1 border border-slate-700 rounded-full text-black placeholder:text-[14px] placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:outline-none focus:border-slate-300 transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+            className="input-class"
             placeholder="Main Street 111"
             value={state.pickupAddress}
             onChange={(e) => dispatch({type:"UPDATE_SHIPMENT_INFO", payload: {pickupAddress: e.target.value}})}
@@ -64,8 +68,9 @@ const ShipmentInfoStep = ({state, dispatch, onNext}: Props) => {
              <div className="flex flex-col gap-y-2">
            <label htmlFor="receiver-name" className="text-sm font-bold">Receiver Name</label>
           <input 
+            id="receiver-name"
             type="text"
-            className="px-4 py-1 border border-slate-700 rounded-full text-black placeholder:text-[14px] placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:outline-none focus:border-slate-300 transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+            className="input-class"
             placeholder="Jane Smith"
             value={state.receiverName}
             onChange={(e) => dispatch({type:"UPDATE_SHIPMENT_INFO", payload: {receiverName: e.target.value}})}
@@ -74,8 +79,9 @@ const ShipmentInfoStep = ({state, dispatch, onNext}: Props) => {
         <div className="flex flex-col gap-y-2">
            <label htmlFor="receiver-phone-number" className="text-sm font-bold">Receiver Phone Number</label>
           <input 
+            id="receiver-phone-number"
             type="text"
-            className="px-4 py-1 border border-slate-700 rounded-full text-black placeholder:text-[14px] placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:outline-none focus:border-slate-300 transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+            className="input-class"
             placeholder="+1201031"
             value={state.receiverPhoneNumber}
             onChange={(e) => dispatch({type:"UPDATE_SHIPMENT_INFO", payload: {receiverPhoneNumber: e.target.value}})}
@@ -84,7 +90,8 @@ const ShipmentInfoStep = ({state, dispatch, onNext}: Props) => {
         <div className="flex flex-col gap-y-2">
            <label htmlFor="receiver-notes" className="text-sm font-bold">Receiver Notes</label>
           <input 
-            className="px-4 py-2 border border-slate-700 rounded-full text-black placeholder:text-[14px] placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:outline-none focus:border-slate-300 transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+            id="receiver-notes"
+            className="input-class"
             placeholder="The shipment is..."
             value={state.receiverNotes ?? ""}
             onChange={(e) => dispatch({type:"UPDATE_SHIPMENT_INFO", payload: {receiverNotes: e.target.value}})}
@@ -93,8 +100,9 @@ const ShipmentInfoStep = ({state, dispatch, onNext}: Props) => {
          <div className="flex flex-col gap-y-2">
            <label htmlFor="delivery-address" className="text-sm font-bold">Delivery Address</label>
           <input 
+            id="delivery-address"
             type="text"
-            className="px-4 py-1 border border-slate-700 rounded-full text-black placeholder:text-[14px] placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:outline-none focus:border-slate-300 transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+            className="input-class"
             placeholder="Jk Vuzrazhdane"
             value={state.deliveryAddress}
             onChange={(e) => dispatch({type:"UPDATE_SHIPMENT_INFO", payload: {deliveryAddress: e.target.value}})}

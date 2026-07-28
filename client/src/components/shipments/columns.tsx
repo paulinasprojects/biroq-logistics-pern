@@ -25,6 +25,28 @@ export const columns: ColumnDef<Shipment>[] = [
   )
 },
   {
+    id: "Dimensions",
+    header: "Dimensions h/l/w",
+    size: 60,
+    accessorFn: (row) => <div>
+      {`${row.packageHeight}cm x ${row.packageLength}cm x ${row.packageWidth}cm`}
+    </div>,
+     cell: ({ getValue }) => (
+    <span>{getValue<string>()}</span>
+  )
+  },
+  {
+    accessorKey: "packageWeight",
+    header: "Package Weight",
+    meta: {label: "Package Weight"},
+    size: 120,
+    cell: ({row}) => (
+      <div>
+        {row.original.packageWeight}kg
+      </div>
+    )
+  },
+  {
     accessorKey: "senderName",
     header: "Sender Name",
     meta: { label: "Sender Name" },

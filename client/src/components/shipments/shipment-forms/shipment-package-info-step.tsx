@@ -27,7 +27,8 @@ const ShipmentPackageInfoStep = ({state, dispatch, onNext, onBack}: Props) => {
           <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-y-2">
             <label htmlFor="package-type" className="text-sm font-bold">Package Type</label>
-            <select id="package-type"
+            <select 
+              id="package-type"
               value={state.packageType}
               onChange={(e) => dispatch({type: "UPDATE_PACKAGE_INFO", payload: {packageType: e.target.value}})}
               className="px-4 py-2 border border-slate-700 rounded-sm text-gray-700 focus:outline-none"
@@ -41,8 +42,9 @@ const ShipmentPackageInfoStep = ({state, dispatch, onNext, onBack}: Props) => {
              <div className="flex flex-col gap-y-2">
               <label htmlFor="package-description" className="text-sm font-bold">Package Description</label>
               <input 
+                id="package-description" 
                 type="text"
-                className="px-4 py-1 border border-slate-700 rounded-full text-black placeholder:text-[14px] placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:outline-none focus:border-slate-300 transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+                className="input-class"
                 placeholder="Package is..."
                 value={state.packageDescription}
                 onChange={(e) => dispatch({type:"UPDATE_PACKAGE_INFO", payload: {packageDescription: e.target.value}})}
@@ -51,9 +53,10 @@ const ShipmentPackageInfoStep = ({state, dispatch, onNext, onBack}: Props) => {
              <div className="flex flex-col gap-y-2">
               <label htmlFor="package-weight" className="text-sm font-bold">Package Weight</label>
               <input
+                id="package-weigth" 
                 min={0}
                 type="number"
-                className="px-4 py-1 border border-slate-700 rounded-full text-black placeholder:text-[14px] placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:outline-none focus:border-slate-300 transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+                className="input-class"
                 placeholder="10kg"
                 value={state.packageWeight}
                 onChange={(e) => dispatch({type:"UPDATE_PACKAGE_INFO", payload: {packageWeight: Number(e.target.value)}})}
@@ -62,9 +65,10 @@ const ShipmentPackageInfoStep = ({state, dispatch, onNext, onBack}: Props) => {
              <div className="flex flex-col gap-y-2">
               <label htmlFor="package-length" className="text-sm font-bold">Package Length</label>
               <input
+                id="package-length" 
                 min={0}
                 type="number"
-                className="px-4 py-1 border border-slate-700 rounded-full text-black placeholder:text-[14px] placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:outline-none focus:border-slate-300 transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+                className="input-class"
                 placeholder="10cm"
                 value={state.packageLength}
                 onChange={(e) => dispatch({type:"UPDATE_PACKAGE_INFO", payload: {packageLength: Number(e.target.value)}})}
@@ -73,9 +77,10 @@ const ShipmentPackageInfoStep = ({state, dispatch, onNext, onBack}: Props) => {
              <div className="flex flex-col gap-y-2">
               <label htmlFor="package-width" className="text-sm font-bold">Package Width</label>
               <input
+                id="package-width" 
                 min={0}
                 type="number"
-                className="px-4 py-1 border border-slate-700 rounded-full text-black placeholder:text-[14px] placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:outline-none focus:border-slate-300 transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+                className="input-class"
                 placeholder="5cm"
                 value={state.packageWidth}
                 onChange={(e) => dispatch({type:"UPDATE_PACKAGE_INFO", payload: {packageWidth: Number(e.target.value)}})}
@@ -84,9 +89,10 @@ const ShipmentPackageInfoStep = ({state, dispatch, onNext, onBack}: Props) => {
              <div className="flex flex-col gap-y-2">
               <label htmlFor="package-height" className="text-sm font-bold">Package Height</label>
               <input
+                id="package-height" 
                 min={0}
                 type="number"
-                className="px-4 py-1 border border-slate-700 rounded-full text-black placeholder:text-[14px] placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:outline-none focus:border-slate-300 transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+                className="input-class"
                 placeholder="5cm"
                 value={state.packageHeight}
                 onChange={(e) => dispatch({type:"UPDATE_PACKAGE_INFO", payload: {packageHeight: Number(e.target.value)}})}
@@ -97,7 +103,8 @@ const ShipmentPackageInfoStep = ({state, dispatch, onNext, onBack}: Props) => {
             <div className="flex flex-col gap-y-2">
               <label htmlFor="receiver-notes" className="text-sm font-bold">Receiver Notes</label>
               <input 
-                className="px-4 py-2 border border-slate-700 rounded-full text-black placeholder:text-[14px] placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:outline-none focus:border-slate-300 transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+                id="receiver-notes" 
+                className="input-class"
                 placeholder="The package is..."
                 value={state.packageNotes ?? ""}
                 onChange={(e) => dispatch({type:"UPDATE_PACKAGE_INFO", payload: {packageNotes: e.target.value}})}
@@ -134,9 +141,10 @@ const ShipmentPackageInfoStep = ({state, dispatch, onNext, onBack}: Props) => {
             />
            </div>
            <div className="flex flex-col gap-y-2">
-              <label htmlFor="special-hadling" className="text-sm font-bold">Special Handling</label>
-              <input 
-                className="px-4 py-2 border border-slate-700 rounded-full text-black placeholder:text-[14px] placeholder:text-slate-400 dark:placeholder:text-slate-400 focus:outline-none focus:border-slate-300 transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+              <label htmlFor="special-handling" className="text-sm font-bold">Special Handling</label>
+              <input  
+                id="special-handling" 
+                className="input-class"
                 placeholder="Fragile"
                 value={state.specialHandling ?? ""}
                 onChange={(e) => dispatch({type:"UPDATE_PACKAGE_INFO", payload: {specialHandling: e.target.value}})}
