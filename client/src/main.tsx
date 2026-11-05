@@ -10,6 +10,6 @@ createRoot(document.getElementById('root')!).render(
     <Router>
       <App />
     </Router>
-    <Toaster richColors position='top-right' duration={3000} />
+    <Toaster richColors position='top-right' duration={2500} />
   </StrictMode>,
 )

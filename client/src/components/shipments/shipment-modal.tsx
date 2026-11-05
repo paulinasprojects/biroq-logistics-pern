@@ -59,7 +59,7 @@ function handleBack(currentStep: number) {
   return (
     <div onClick={handleClickOutside} className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
       <div className="bg-white rounded-sm border border-slate-800 w-full max-w-xl px-5 py-4">
-        <div className="flex itemc justify-between p-3">
+        <div className="flex items-center justify-between p-3">
           <h2 className="text-lg font-bold text-gray-500">
             Add new Shipment
           </h2>
@@ -90,7 +90,7 @@ function handleBack(currentStep: number) {
               return (
                 <div key={label} className="flex items-center gap-2">
                   <div className="flex items-center gap-1.5">
-                    <div className={`flex items-center justify-center w-5 h-5 rounded-full border transition-colors
+                    <div className={`flex items-center justify-center w-5 h-5 rounded-full border transition-colors duration-300
                       ${isCompleted
                         ? "bg-amber-600 border-amber-600" 
                         : isActive
@@ -108,7 +108,7 @@ function handleBack(currentStep: number) {
                         </span>
                       )}
                     </div>
-                    <span className={`text-sm transition-colors whitespace-nowrap
+                    <span className={`text-sm transition-colors duration-300 whitespace-nowrap
                       ${isCompleted
                         ? "text-amber-600 font-medium"
                         : isActive
@@ -120,7 +120,7 @@ function handleBack(currentStep: number) {
                     </span>
                   </div>
                   {i < STEPS.length - 1 && (
-                    <div className={`w-6 h-px transition-colors
+                    <div className={`w-6 h-px transition-colors duration-300
                       ${completedSteps.has(i) ? "bg-amber-600" : "bg-gray-200"}`}
                     />
                   )}
@@ -140,11 +140,11 @@ function handleBack(currentStep: number) {
                 <ShipmentPackageInfoStep
                   state={state.packageInfo}
                   dispatch={dispatch}
-                    onNext={() => handleNext(1)}
-                    onBack={() => handleBack(1)}
+                  onNext={() => handleNext(1)}
+                  onBack={() => handleBack(1)}
                 />
               )}
-              {step == 2 && (
+              {step === 2 && (
                 <ShipmentServiceInfoStep
                   state={state.serviceInfo}
                   dispatch={dispatch}

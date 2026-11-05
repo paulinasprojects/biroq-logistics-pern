@@ -101,9 +101,9 @@ const ShipmentPackageInfoStep = ({state, dispatch, onNext, onBack}: Props) => {
           </div>
           <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-y-2">
-              <label htmlFor="receiver-notes" className="text-sm font-bold">Receiver Notes</label>
+              <label htmlFor="package-notes" className="text-sm font-bold">Package Notes</label>
               <input 
-                id="receiver-notes" 
+                id="package-notes" 
                 className="input-class"
                 placeholder="The package is..."
                 value={state.packageNotes ?? ""}

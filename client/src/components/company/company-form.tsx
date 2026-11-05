@@ -109,7 +109,7 @@ export default function CompanyForm({ onSuccess, company }: CompanyFormProps) {
               onValueChange={(value) => setBusinessType(value as BusinessType)}
             >
               <SelectTrigger placeholder="Choose a business type" />
-              <SelectContent>
+              <SelectContent className="">
                 {Object.values(BusinessType).map((business) => (
                   <SelectOption value={business} key={business}>
                     {business}
@@ -135,7 +135,7 @@ export default function CompanyForm({ onSuccess, company }: CompanyFormProps) {
               </SelectContent>
             </Select>
           </div>
-          <button type="submit" disabled={isLoading} className="px-6 py-3 bg-amber-600 text-gray-100 rounded-sm hover:bg-amber-700 transition-colors cursor-pointer font-medium">
+          <button type="submit" disabled={isLoading} className="px-6 py-3 bg-amber-600 text-gray-100 rounded-full hover:bg-amber-700 transition-colors cursor-pointer font-medium">
             {isLoading ? "Creating..." : company ? "Save changes" : "Create company"}
           </button>
         </div>

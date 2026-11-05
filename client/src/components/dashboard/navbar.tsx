@@ -1,7 +1,27 @@
 import { Plus, Search } from "lucide-react"
+import { useState, useEffect } from "react"
+import ShipmentModal from "../shipments/shipment-modal";
+import { useWarehouseStore } from "@/store/warehouse-store";
 
 const Navbar = () => {
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const { warehouses, getAllWarehouses } = useWarehouseStore();
+
+    useEffect(() => {
+    getAllWarehouses();
+  },[getAllWarehouses]);
+
+
+    function handleAddShipment() {
+      setIsModalOpen(true);
+    } 
+
+    function handleCloseModal() {
+    setIsModalOpen(false)
+  }
+
   return (
+    <>
     <div className='border-b border-gray-300 py-3.5 px-6 max-sm:px-3'>
       <div className="flex justify-between items-center">
         <div className="relative">
@@ -13,13 +33,15 @@ const Navbar = () => {
           />
         </div>
         <div>
-          <button className="inline-flex gap-2 items-center text-gray-100 bg-amber-600 hover:bg-amber-700 transition-colors cursor-pointe px-3  py-1.5 rounded-full text-sm font-medium">
+          <button onClick={handleAddShipment} className="inline-flex gap-2 items-center text-gray-100 bg-amber-600 hover:bg-amber-700 transition-colors cursor-pointe px-3  py-1.5 rounded-full text-sm font-medium">
             <Plus className="size-5" />
-            <span className="hidden sm:block"> Create Shipment</span>
+            <span className="hidden sm:block">Create Shipment</span>
           </button>
         </div>
       </div>
     </div>
+    <ShipmentModal warehouses={warehouses} isOpen={isModalOpen} onClose={handleCloseModal}/>
+    </>
   )
 }
 

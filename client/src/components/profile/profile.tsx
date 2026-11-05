@@ -13,7 +13,7 @@ export default function Profile({ user, onEdit }: ProfileProps) {
   const navigate = useNavigate();
 
   return (
-    <div className="grid lg:grid-cols-2 max-sm:grid-cols-1 gap-10">
+    <div className="grid xl:grid-cols-2 max-sm:grid-cols-1 gap-10">
       <EditImage user={user}/>
     <div className="flex flex-col gap-6 justify-between border border-[#e8e8e8] rounded-xl p-10">
       <div>

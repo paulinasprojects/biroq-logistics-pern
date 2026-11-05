@@ -29,12 +29,12 @@ const ShipmentServiceInfoStep = ({state, dispatch, onNext, onBack}: Props) => {
         <div className="grid sm:grid-cols-2 max-sm:grid-cols-1 gap-10">
           <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-y-2">
-              <label htmlFor="package-type" className="text-sm font-bold">Package Type</label>
+              <label htmlFor="package-type" className="text-sm font-bold">Service Type</label>
               <select 
-                id="package-type"
+                id="service-type"
                 value={state.serviceType}
                 onChange={(e) => dispatch({type: "UPDATE_SERVICE_INFO", payload: {serviceType: e.target.value}})}
-                className="px-4 py-2 border border-slate-700 rounded-sm text-gray-700 focus:outline-none"
+                className="input-class"
               >
                 <option value="" disabled>Select an option</option>
                 {Object.values((ServiceType)).map((service) => (
@@ -54,13 +54,13 @@ const ShipmentServiceInfoStep = ({state, dispatch, onNext, onBack}: Props) => {
               />
             </div>
             <div className="flex flex-col gap-y-2">
-                <label htmlFor="package-weight" className="text-sm font-bold">Service Price</label>
+                <label htmlFor="service-price" className="text-sm font-bold">Service Price</label>
                 <input
-                  id="package-weight"
+                  id="service-price"
                   min={0}
                   type="number"
                   className="input-class"
-                  placeholder="10kg"
+                  placeholder="$150"
                   value={state.servicePrice}
                   onChange={(e) => dispatch({type:"UPDATE_SERVICE_INFO", payload: {servicePrice: Number(e.target.value)}})}
                 />

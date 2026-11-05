@@ -153,7 +153,7 @@ const Sidebar = () => {
           >
             <div className='flex gap-2 items-center'>
               <img
-                src="/default-user.png"
+                src={user?.image ?? "/default-user.png"}
                 alt="profile image"
                 className="w-8 h-8 rounded-full object-cover"
               />

@@ -51,7 +51,7 @@ export default function EditImage({ user }: EditImageProps) {
         <div className="flex flex-col items-center">
           {user.image ? (
           <div className="relative">
-          <img src={user.image} alt={`${user.firstName}'s image`} className="sm:w-[400px] max-sm:w-[350px] object-cover rounded-lg" />
+          <img src={user.image} alt={`${user.firstName}'s image`} className="sm:w-100 max-sm:w-87.5 object-cover rounded-lg" />
             <div className="absolute top-5 right-5">
               <button onClick={handleDeleteUserImage}  className="bg-red-500 text-white p-2 rounded-full hover:bg-red-400 duration-300 transition-colors">
               <Trash2 className="size-3"/> 

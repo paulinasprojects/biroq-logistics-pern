@@ -60,7 +60,7 @@ const ShipmentSubmitInfoStep = ({state, dispatch, onBack, onSuccess, warehouseId
   return (
     <div className="flex flex-col gap-6">
       {error && (
-        <span className="text-red text-sm">
+        <span className="text-red-500 text-sm">
           {error}
         </span>
       )}

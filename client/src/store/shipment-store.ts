@@ -100,6 +100,12 @@ export const useShipmentStore = create<ShipmentStore>((set) => ({
     hasPickUpToday: boolean;
     hasSaturdayDelivery: boolean;
   }) => {
+    
+    set({
+      isLoading: true,
+      error: null
+    });
+    
     try {
       const response = await createShipmentService(data);
       if (response.data) {

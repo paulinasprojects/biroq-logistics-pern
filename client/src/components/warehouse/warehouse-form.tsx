@@ -85,6 +85,7 @@ export default function WarehouseForm({ onSuccess, warehouse }: WarehouseFormPro
           <div className="flex flex-col gap-2">
             <label htmlFor="capacity" className="text-sm font-medium">Capacity</label>
             <input
+              min={0}
               id="capacity"
               type="number"
               value={capacity}
@@ -108,7 +109,7 @@ export default function WarehouseForm({ onSuccess, warehouse }: WarehouseFormPro
           <button
             type="submit"
             disabled={isLoading}
-            className="px-6 py-3 bg-amber-600 text-gray-100 rounded-sm hover:bg-amber-700 transition-colors cursor-pointer font-medium"
+            className="px-6 py-3 bg-amber-600 text-gray-100 rounded-full hover:bg-amber-700 transition-colors cursor-pointer font-medium"
           >
             {isLoading ? "Creating..." : warehouse ? "Save changes" : "Create warehouse"}
           </button>
