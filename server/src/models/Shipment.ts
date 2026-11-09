@@ -9,13 +9,14 @@ import {
 } from "sequelize";
 import sequelize from "../config/db";
 import { Warehouse } from "./Warehouse";
-import { PackageType, ServiceType } from "../types";
+import { PackageType, ServiceType, ShipmentStatus } from "../types";
 
 export class Shipment extends Model<
 InferAttributes<Shipment>, InferCreationAttributes<Shipment>> {
   declare id: CreationOptional<string>;
   declare warehouseId: ForeignKey<Warehouse["id"]>;
   declare shipmentName: string;
+  declare shipmentStatus: ShipmentStatus;
   declare senderName: string;
   declare senderPhoneNumber: string;
   declare pickupAddress: string;
@@ -71,6 +72,16 @@ Shipment.init({
       len: {
         args: [2, 255],
         msg: "Shipment name must be between 2 and 255 characters"
+      }
+    }
+  },
+  shipmentStatus: {
+    type: DataTypes.ENUM(...Object.values(ShipmentStatus)),
+    allowNull: false,
+    validate: {
+      isIn: {
+        args :[Object.values(ShipmentStatus)],
+        msg: `Shipment status has to be one of ${Object.values(ShipmentStatus).join(", ")}`
       }
     }
   },
@@ -207,7 +218,7 @@ Shipment.init({
     validate: {
       min: {
         args: [0],
-        msg: "Declared value canno be negative"
+        msg: "Declared value cannot be negative"
       }
     },
   },
@@ -252,7 +263,7 @@ deliveryTimeFrame: {
   allowNull: false,
   validate: {
     notEmpty: {
-      msg: "Chargeable weight cannot be empty"
+      msg: "Delivery time frame cannot be empty"
     }
   }
 },

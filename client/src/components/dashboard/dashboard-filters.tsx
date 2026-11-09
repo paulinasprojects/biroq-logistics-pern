@@ -12,11 +12,11 @@ export default function DashboardFilters({shipments, isLoading}: Props) {
     <div className="mt-6">
       <div className="flex justify-between max-sm:flex-col gap-6">
         <div className="md:flex gap-6 max-sm:grid">
-          <button className="text-[14px] outline-1 py-2 px-2 rounded-md hover:bg-black/5">All</button> 
-          <button className="text-[14px] outline-1 py-2 px-2 rounded-md hover:bg-black/5">Today</button> 
-          <button className="text-[14px] outline-1 py-2 px-2 rounded-md hover:bg-black/5">Week</button> 
-          <button className="text-[14px] outline-1 py-2 px-2 rounded-md hover:bg-black/5">Month</button> 
-          <button className="text-[14px] outline-1 py-2 px-2 rounded-md hover:bg-black/5">Year</button> 
+          <button className="text-sm outline-1 py-2 px-2 rounded-md hover:bg-black/5">All</button> 
+          <button className="text-sm outline-1 py-2 px-2 rounded-md hover:bg-black/5">Today</button> 
+          <button className="text-sm outline-1 py-2 px-2 rounded-md hover:bg-black/5">Week</button> 
+          <button className="text-sm outline-1 py-2 px-2 rounded-md hover:bg-black/5">Month</button> 
+          <button className="text-sm outline-1 py-2 px-2 rounded-md hover:bg-black/5">Year</button> 
         </div>
         <div className="flex items-center gap-6">
           <button className="outline p-2 rounded-lg hover:bg-black/5 md:w-auto max-sm:w-full">
@@ -54,7 +54,23 @@ export default function DashboardFilters({shipments, isLoading}: Props) {
               <div className="flex items-center gap-2">
                 <PackageCheck className="size-4" />
                 <span className="text-[16px] font-medium">
-                  On-time Delivery
+                  Pending
+                </span>
+              </div>
+              <Ellipsis className="cursor-pointer hover:text-black/55"/>
+            </div>
+            <span className="text-2xl font-bold">
+              0
+            </span>
+          </div>
+        </div>
+        <div className="border border-gray-500 rounded-xl p-6">
+          <div className="flex flex-col gap-3">
+            <div className="flex justify-between">
+              <div className="flex items-center gap-2">
+                <PackageCheck className="size-4" />
+                <span className="text-[16px] font-medium">
+                  Preparing
                 </span>
               </div>
               <Ellipsis className="cursor-pointer hover:text-black/55"/>
@@ -86,7 +102,22 @@ export default function DashboardFilters({shipments, isLoading}: Props) {
               <div className="flex items-center gap-2">
                 <PackageX className="size-4" />
                 <span className="text-[16px] font-medium">
-                  Delayed / Exception
+                  Delayed
+                </span>
+              </div>
+              <Ellipsis className="cursor-pointer hover:text-black/55"/>
+            </div>
+            <span className="text-2xl font-bold">
+              0
+            </span>
+          </div>
+        </div>  <div className="border border-gray-500 rounded-xl p-6">
+          <div className="flex flex-col gap-3">
+            <div className="flex justify-between">
+              <div className="flex items-center gap-2">
+                <PackageCheck className="size-4" />
+                <span className="text-[16px] font-medium">
+                  Delivered
                 </span>
               </div>
               <Ellipsis className="cursor-pointer hover:text-black/55"/>

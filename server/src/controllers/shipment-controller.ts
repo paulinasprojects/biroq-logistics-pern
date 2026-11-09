@@ -119,6 +119,7 @@ export const createShipment = asyncHandler(
     const {
       warehouseId,
       shipmentName,
+      shipmentStatus,
       senderName,
       senderPhoneNumber,
       pickupAddress,
@@ -147,7 +148,7 @@ export const createShipment = asyncHandler(
       hasSaturdayDelivery
     } = req.body;
 
-    if (!warehouseId || !shipmentName || !senderName || !senderPhoneNumber || !pickupAddress || !receiverName || !receiverPhoneNumber || !deliveryAddress || !packageType || !packageDescription || !packageWeight || !packageLength || !packageWidth || !packageHeight) {
+    if (!warehouseId || !shipmentName || !shipmentStatus ||  !senderName || !senderPhoneNumber || !pickupAddress || !receiverName || !receiverPhoneNumber || !deliveryAddress || !packageType || !packageDescription || !packageWeight || !packageLength || !packageWidth || !packageHeight) {
       throw new AppError("Please provide all required shipment fields", 400)
     }
 
@@ -175,10 +176,10 @@ export const createShipment = asyncHandler(
       if (!warehouse) {
         throw new AppError("Warehouse not found", 404)
       }
-
      const shipment = await Shipment.create({
       warehouseId,
       shipmentName,
+      shipmentStatus,
       senderName,
       senderPhoneNumber,
       pickupAddress,
@@ -218,6 +219,7 @@ export const updateShipmentById = asyncHandler(
     const {
       shipmentName,
       senderName,
+      shipmentStatus,
       senderPhoneNumber,
       pickupAddress,
       receiverName,
@@ -249,6 +251,10 @@ export const updateShipmentById = asyncHandler(
 
     if (shipmentName !== undefined) {
       shipment.shipmentName = shipmentName
+    }
+
+    if (shipmentStatus !== undefined) {
+      shipment.shipmentStatus = shipmentStatus;
     }
 
     if (senderName !== undefined) {

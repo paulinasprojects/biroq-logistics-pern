@@ -3,6 +3,7 @@ import { ShipmentFormData, ShipmentFormAction } from "@/types/shipment-types";
 export const intiialFormState: ShipmentFormData = {
   shipmentInfo: {
     shipmentName: "",
+    shipmentStatus: "",
     senderName: "",
     senderPhoneNumber: "",
     pickupAddress: "",

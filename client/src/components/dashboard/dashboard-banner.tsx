@@ -12,9 +12,9 @@ export default function DashboardBanner() {
               <p className="text-white text-sm">All hubs operational - monitor live shipments and delivery SLA.</p>
             </div>
             <div>
-              <button className="text-white text-[16px] inline-flex gap-2">
+              <button className="text-white text-[16px] inline-flex items-center gap-2 hover:underline hover:underline-offset-4">
                 Get started
-                <ArrowRight/>
+                <ArrowRight width={18} height={18}/>
               </button>
             </div>
           </div>

@@ -10,7 +10,7 @@ interface Props {
 
 const CompanyCard = ({ onEdit, onDelete, company, onEditImage, onDeleteImage }: Props) => {
   return (
-    <div className="flex flex-col px-12 py-4">
+    <div className="flex flex-col px-12 py-4 outline outline-gray-300 rounded-md hover:shadow-md">
       <div className="flex lg:flex-row flex-col justify-between items-center gap-6">
         <div className="flex items-center justify-center">
           {company.image ? (
@@ -28,8 +28,8 @@ const CompanyCard = ({ onEdit, onDelete, company, onEditImage, onDeleteImage }: 
             </div>
           )}
         </div>
-        <div className="flex flex-col items-center gap-6 xl:gap-24">
-          <div className="flex flex-col items-center gap-2">
+        <div className="flex flex-col items-center gap-6 xl:gap-14">
+          <div className="flex flex-col items-center gap-3">
             <span>Company name: {company.name}</span>
             <span>Company address: {company.address}</span>
             <span className="capitalize">Business type: {company.businessType}</span>

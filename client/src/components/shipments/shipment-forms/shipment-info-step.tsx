@@ -1,4 +1,5 @@
 import { ShipmentFormAction, ShipmentFormData } from "@/types/shipment-types";
+import { ShipmentStatus } from "@/types/types";
 
 interface Props {
   state: ShipmentFormData["shipmentInfo"];
@@ -19,7 +20,7 @@ const ShipmentInfoStep = ({state, dispatch, onNext}: Props) => {
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <div className="grid sm:grid-cols-2 max-sm:grid-cols-1 gap-10">
           <div className="flex flex-col gap-6">
-            <div className="flex flex-col gap-y-2">
+        <div className="flex flex-col gap-y-2">
           <label htmlFor="shipment-name" className="text-sm font-bold">Shipment Name</label>
           <input 
             id="shipment-name"
@@ -29,6 +30,22 @@ const ShipmentInfoStep = ({state, dispatch, onNext}: Props) => {
             value={state.shipmentName}
             onChange={(e) => dispatch({type:"UPDATE_SHIPMENT_INFO", payload: {shipmentName: e.target.value}})}
            />
+        </div>
+        <div className="flex flex-col gap-y-2">
+          <label htmlFor="shipment-status" className="text-sm font-bold">Shipment Status</label>
+        <select 
+          id="shipment-status"
+          value={state.shipmentStatus}
+          onChange={(e) => dispatch({type: "UPDATE_SHIPMENT_INFO", payload: {shipmentStatus: e.target.value}})}
+          className="px-4 py-2 border border-slate-700 rounded-sm text-gray-700 focus:outline-none"
+        >
+          <option value="" disabled>Select an option</option>
+          {Object.values((ShipmentStatus)).map((status) => (
+            <option value={status} key={status}>
+              {status}
+            </option>
+          ))}
+          </select>
         </div>
         <div className="flex flex-col gap-y-2">
           <label htmlFor="sender-name" className="text-sm font-bold">Sender Name</label>

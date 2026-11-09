@@ -1,4 +1,4 @@
-import { Shipment, PackageType, ServiceType } from "./types";
+import { Shipment, PackageType, ServiceType, ShipmentStatus } from "./types";
 
 export interface ShipmentState {
   shipments: Shipment[];
@@ -10,6 +10,7 @@ export interface ShipmentState {
 export interface ShipmentFormData {
   shipmentInfo: {
     shipmentName: string;
+    shipmentStatus: ShipmentStatus | "" | string;
     senderName: string;
     senderPhoneNumber: string;
     pickupAddress: string;

@@ -116,7 +116,7 @@ const WarehousesPage = () => {
             <h2>No warehouses found</h2>
             <p>Start by creating your first warehouse</p>
           </div>
-          <button onClick={handleAddWarehouse} className="flex items-center gap-2 px-4 py-3 bg-amber-600 hover:bg-amber-700 text-gray-100 rounded-sm transition font-medium">
+          <button onClick={handleAddWarehouse} className="flex items-center gap-2 px-4 py-3 bg-amber-600 hover:bg-amber-700 text-gray-100 rounded-full transition font-medium">
             <Plus className="size-5" />
             Add a warehouse
           </button>
@@ -135,7 +135,7 @@ const WarehousesPage = () => {
         </div>
         <button
           onClick={handleAddWarehouse}
-          className="flex items-center gap-2 px-6 py-3 rounded-sm bg-amber-600 hover:bg-amber-700 text-gray-100"
+          className="flex items-center gap-2 px-6 py-3 rounded-full bg-amber-600 hover:bg-amber-700 text-gray-100"
         >
           <Plus className="size-5" />
           <span className="hidden sm:block">Add warehouse</span>

@@ -58,6 +58,14 @@ export enum PackageType {
   CUSTOMPACKAGE = "custompackage",
 }
 
+export enum ShipmentStatus {
+  PENDING = "pending",
+  PREPARING = "preparing",
+  IN_TRANSIT = "in_transit",
+  DELAYED = "delayed",
+  DELIVERED = "delivered",
+}
+
 export enum ServiceType {
   STANDARD = "standard",
   EXPRESS = "express",
@@ -69,6 +77,7 @@ export interface Shipment {
   id: string;
   warehouseId: string;
   shipmentName: string;
+  shipmentStatus: ShipmentStatus;
   senderName: string;
   senderPhoneNumber: string;
   pickupAddress: string;

@@ -50,7 +50,7 @@ const ShipmentPage = () => {
           </div>
           <button onClick={handleAddShipment} className="flex items-center gap-2 px-4 py-3 bg-amber-600 hover:bg-amber-700 text-gray-100 rounded-full transition font-medium">
             <Plus className="size-5"/>
-            Add a shipment
+            Create a shipment
           </button>
         </div>
         <ShipmentModal warehouses={warehouses} isOpen={isModalOpen} onClose={handleCloseModal}/>
@@ -70,7 +70,7 @@ const ShipmentPage = () => {
           className="flex items-center gap-2 px-6 py-3 rounded-full bg-amber-600 hover:bg-amber-700 text-gray-100"
         >
           <Plus className="size-5"/>
-          <span className="hidden sm:block">Add shipment</span>
+          <span className="hidden sm:block">Create shipment</span>
         </button>
       </div>
       {isLoading && (

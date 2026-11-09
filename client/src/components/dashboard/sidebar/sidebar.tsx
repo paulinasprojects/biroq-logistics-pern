@@ -1,7 +1,7 @@
 import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { TextLogo } from '@/components/common/text-logo';
-import { House, Monitor, Building, Van, Warehouse, ChartColumnDecreasing, ChevronLeft, Landmark, Package, LogOut } from 'lucide-react';
+import { House, Monitor, Building, Van, Warehouse, ChartColumnDecreasing, ChevronLeft, Landmark, Package, LogOut, User2Icon } from 'lucide-react';
 import { cn } from '@/utils/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useSidebar } from './sidebar-context';
@@ -18,6 +18,7 @@ const links = [
   { title: "Pickups", href: "/pickups", icon: Package },
   { title: "Monitoring", href: "/monitoring", icon: Monitor },
   { title: "Analytics", href: "/analytics", icon: ChartColumnDecreasing },
+  { title: "Profile", href: "/profile", icon: User2Icon },
 ]
 
 const sidebarVariants: Variants = {

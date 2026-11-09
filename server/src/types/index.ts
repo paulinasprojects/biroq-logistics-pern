@@ -28,3 +28,11 @@ export enum ServiceType {
   SAME_DAY = "same_day",
   OVERNIGHT = "overnight",
 }
+
+export enum ShipmentStatus {
+  PENDING = "pending",
+  PREPARING = "preparing",
+  IN_TRANSIT = "in_transit",
+  DELAYED = "delayed",
+  DELIVERED = "delivered",
+}
